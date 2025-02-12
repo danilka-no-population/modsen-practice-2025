@@ -1,0 +1,19 @@
+{
+    "compilerOptions": {
+        "target": "es2021",
+        "module": "esnext",
+        "strict": true,
+        "baseUrl": "./",
+        "paths": {
+            "@components/*": ["src/components/*"],
+            "@pages/*": ["src/pages/*"],
+            "@store/*": ["src/store/*"],
+            "@utils/*": ["src/utils/*"]
+        }
+    },
+    "files": [],
+    "references": [
+        { "path": "./tsconfig.app.json" },
+        { "path": "./tsconfig.node.json" }
+    ]
+}
