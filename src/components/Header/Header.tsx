@@ -1,5 +1,5 @@
-import burgerIcon from '../../assets/images/burger.png';
-import plusIcon from '../../assets/images/grayPlus.png';
+import burgerIcon from '../../assets/icons/burger.png';
+import plusIcon from '../../assets/icons/grayPlus.png';
 import {
     AddColumnButton,
     BurgerButton,

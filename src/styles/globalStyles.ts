@@ -12,6 +12,13 @@ const GlobalStyles = createGlobalStyle`
         font-optical-sizing: auto;
         font-style: normal;
         color: #1E293B;
+        background: #ffffff;
+        transition: background 0.3s ease-in-out;
+        min-width: 100vw;
+        min-height: 100vh;
+        @media (max-width: 768px) {
+            background: #F1F5F9;
+        }
     }
 `;
 
