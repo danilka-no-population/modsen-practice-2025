@@ -1,9 +1,14 @@
 import { loadState, saveState } from '../utils/localStorageMethods';
+import columnsReducer from './slices/columnSlice';
+import tasksReducer from './slices/taskSlice';
 import { combineReducers, configureStore } from '@reduxjs/toolkit';
 
 const preloadedState = loadState();
 
-export const rootReducer = combineReducers({});
+export const rootReducer = combineReducers({
+    columns: columnsReducer,
+    tasks: tasksReducer,
+});
 
 export const store = configureStore({
     reducer: rootReducer,
