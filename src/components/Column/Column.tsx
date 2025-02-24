@@ -37,8 +37,9 @@ const Column: FC<ColumnProps> = ({ id, title, color }) => {
     const [isAddingTask, setIsAddingTask] = useState<boolean>(false);
     const [titleInput, setTitleInput] = useState<string>('');
     const [descriptionInput, setDescriptionInput] = useState<string>('');
-    const [priority, setPriority] =
-        useState<keyof typeof priorityColors>('Low');
+    const [priority, setPriority] = useState<
+        keyof typeof priorityColors | null
+    >(null);
 
     const priorityColors: Record<'Low' | 'Medium' | 'High', string> = {
         Low: '#22C55E',
@@ -55,17 +56,16 @@ const Column: FC<ColumnProps> = ({ id, title, color }) => {
                 columnId: id,
                 title: titleInput,
                 description: descriptionInput,
-                priority: {
-                    label: priority,
-                    color: priorityColors[priority],
-                },
+                priority: priority
+                    ? { label: priority, color: priorityColors[priority] }
+                    : undefined,
             })
         );
 
         setIsAddingTask(false);
         setTitleInput('');
         setDescriptionInput('');
-        setPriority('Low');
+        setPriority(null);
     };
 
     return (
@@ -88,20 +88,25 @@ const Column: FC<ColumnProps> = ({ id, title, color }) => {
                     <AddTaskForm>
                         <TaskPriority
                             color={
-                                priorityColors[
-                                    priority as 'Low' | 'Medium' | 'High'
-                                ]
+                                priority
+                                    ? priorityColors[
+                                          priority as 'Low' | 'Medium' | 'High'
+                                      ]
+                                    : '#989ca6'
                             }
                         >
                             <select
-                                value={priority}
+                                value={priority ?? ''}
                                 onChange={(e) =>
                                     setPriority(
-                                        e.target
-                                            .value as keyof typeof priorityColors
+                                        e.target.value
+                                            ? (e.target
+                                                  .value as keyof typeof priorityColors)
+                                            : null
                                     )
                                 }
                             >
+                                <option value="">None</option>
                                 <option value="Low">Low</option>
                                 <option value="Medium">Medium</option>
                                 <option value="High">High</option>
