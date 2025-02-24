@@ -4,19 +4,13 @@ import { FC } from 'react';
 interface TaskProps {
     title: string;
     description: string;
-    tag?: string;
-    tagColor?: string;
+    priority?: { label: string; color: string };
 }
 
-const TaskCard: FC<TaskProps> = ({
-    title,
-    description,
-    tag = 'Low',
-    tagColor = '#22C55E',
-}) => {
+const TaskCard: FC<TaskProps> = ({ title, description, priority }) => {
     return (
         <TaskWrapper>
-            {tag && <Tag color={tagColor}>{tag}</Tag>}
+            {priority && <Tag color={priority.color}>{priority.label}</Tag>}
             <TaskHeader>{title}</TaskHeader>
             <TaskDescription>{description}</TaskDescription>
         </TaskWrapper>

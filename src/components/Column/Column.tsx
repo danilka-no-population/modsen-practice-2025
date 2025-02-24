@@ -1,82 +1,142 @@
 import whitePlus from '../../assets/icons/whitePlus.png';
+import { useAppDispatch, useAppSelector } from '../../hooks/typedReduxHooks';
+import { addTask } from '../../store/slices/taskSlice';
 import { Icon } from '../Header/styled';
 import TaskCard from '../TaskCard/TaskCard';
 import {
     AddTask,
     AddTaskButton,
+    AddTaskForm,
+    ButtonsContainer,
+    CancelButton,
     ColumnHeader,
     ColumnTitle,
     ColumnWrapper,
+    SaveButton,
     TaskCount,
+    TaskDescriptionInput,
+    TaskPriority,
     TasksWrapper,
+    TaskTitleInput,
 } from './styled';
 import { FC, useState } from 'react';
+import { v4 as uuidv4 } from 'uuid';
 
 interface ColumnProps {
+    id: string;
     title: string;
-    taskCount: number;
     color: string;
 }
 
-interface Task {
-    title: string;
-    description: string;
-    tag?: string;
-    tagColor?: string;
-}
+const Column: FC<ColumnProps> = ({ id, title, color }) => {
+    const dispatch = useAppDispatch();
+    const tasks = useAppSelector((state) =>
+        state.tasks.tasks.filter((task) => task.columnId === id)
+    );
 
-const medium = { name: 'Medium', color: '#4F46E5' };
-const low = { name: 'Low', color: '#22C55E' };
-const high = { name: 'High', color: '#F43F5E' };
+    const [isAddingTask, setIsAddingTask] = useState<boolean>(false);
+    const [titleInput, setTitleInput] = useState<string>('');
+    const [descriptionInput, setDescriptionInput] = useState<string>('');
+    const [priority, setPriority] =
+        useState<keyof typeof priorityColors>('Low');
 
-const Column: FC<ColumnProps> = ({ title, taskCount, color }) => {
-    const [tasks] = useState<Task[]>([
-        {
-            title: 'Ipsum dolor sit amet, libre unst consectetur adipiscing elit.',
-            description:
-                '1. Lorem ipsum dolor sit amet, libre unst consectetur adipiscing elit.',
-            tag: high.name,
-            tagColor: high.color,
-        },
-        {
-            title: 'Ipsum dolor sit amet, libre unst consectetur adipiscing elit.',
-            description:
-                '2. Lorem ipsum dolor sit amet, libre unst consectetur adipiscing elit. Ipsum dolor sit amet, libre unst consectetur adipiscing elit.',
-            tag: medium.name,
-            tagColor: medium.color,
-        },
-        {
-            title: 'Ipsum dolor sit amet, libre unst consectetur adipiscing elit.',
-            description:
-                '3. Lorem ipsum dolor sit amet, libre unst consectetur adipiscing elit.',
-            tag: low.name,
-            tagColor: low.color,
-        },
-    ]);
+    const priorityColors: Record<'Low' | 'Medium' | 'High', string> = {
+        Low: '#22C55E',
+        Medium: '#F59E0B',
+        High: '#EF4444',
+    } as const;
+
+    const handleAddTask = () => {
+        if (titleInput.trim() === '') return;
+
+        dispatch(
+            addTask({
+                id: uuidv4(),
+                columnId: id,
+                title: titleInput,
+                description: descriptionInput,
+                priority: {
+                    label: priority,
+                    color: priorityColors[priority],
+                },
+            })
+        );
+
+        setIsAddingTask(false);
+        setTitleInput('');
+        setDescriptionInput('');
+        setPriority('Low');
+    };
 
     return (
         <ColumnWrapper>
             <ColumnHeader color={color}>
                 <div>
-                    <TaskCount color={color}>{taskCount}</TaskCount>
+                    <TaskCount color={color}>{tasks.length}</TaskCount>
                     <ColumnTitle>{title}</ColumnTitle>
                 </div>
-                <AddTaskButton>
+                <AddTaskButton onClick={() => setIsAddingTask(true)}>
                     <Icon src={whitePlus} alt="Add task" />
                 </AddTaskButton>
             </ColumnHeader>
             <TasksWrapper>
                 {tasks.map((task) => (
-                    <TaskCard
-                        title={task.title}
-                        description={task.description}
-                        tag={task?.tag}
-                        tagColor={task?.tagColor}
-                        key={Date.now()}
-                    />
+                    <TaskCard key={task.id} {...task} />
                 ))}
+
+                {isAddingTask && (
+                    <AddTaskForm>
+                        <TaskPriority
+                            color={
+                                priorityColors[
+                                    priority as 'Low' | 'Medium' | 'High'
+                                ]
+                            }
+                        >
+                            <select
+                                value={priority}
+                                onChange={(e) =>
+                                    setPriority(
+                                        e.target
+                                            .value as keyof typeof priorityColors
+                                    )
+                                }
+                            >
+                                <option value="Low">Low</option>
+                                <option value="Medium">Medium</option>
+                                <option value="High">High</option>
+                            </select>
+                        </TaskPriority>
+
+                        <TaskTitleInput
+                            type="text"
+                            placeholder="Task title..."
+                            value={titleInput}
+                            onChange={(e) => setTitleInput(e.target.value)}
+                        />
+                        <TaskDescriptionInput
+                            type="text"
+                            placeholder="Task description..."
+                            value={descriptionInput}
+                            onChange={(e) =>
+                                setDescriptionInput(e.target.value)
+                            }
+                        />
+
+                        <ButtonsContainer>
+                            <SaveButton onClick={handleAddTask}>
+                                Save
+                            </SaveButton>
+                            <CancelButton
+                                onClick={() => setIsAddingTask(false)}
+                            >
+                                Cancel
+                            </CancelButton>
+                        </ButtonsContainer>
+                    </AddTaskForm>
+                )}
             </TasksWrapper>
-            <AddTask color={color}>
+            <AddTask color={color} onClick={() => setIsAddingTask(true)}>
                 <div>Add task...</div>
             </AddTask>
         </ColumnWrapper>

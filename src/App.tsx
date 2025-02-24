@@ -9,9 +9,13 @@ function App() {
             <GlobalStyles />
             <Header />
             <BoardWrapper>
-                <Column title={'To Do'} color="#4F46E5" taskCount={2} />
-                <Column title={'In progress'} color="#F59E0B" taskCount={3} />
-                <Column title={'Done'} color="#22C55E" taskCount={2} />
+                <Column id="todo" title={'To Do'} color="#4F46E5" />
+                <Column
+                    id="in-progress"
+                    title={'In progress'}
+                    color="#F59E0B"
+                />
+                <Column id="done" title={'Done'} color="#22C55E" />
             </BoardWrapper>
         </>
     );
