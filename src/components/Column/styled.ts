@@ -130,3 +130,82 @@ export const TasksWrapper = styled.div`
     flex-direction: column;
     gap: 12px;
 `;
+
+export const AddTaskForm = styled.div`
+    background: white;
+    padding: 10px;
+    border-radius: 8px;
+    display: flex;
+    flex-direction: column;
+    align-items: start;
+    gap: 8px;
+    box-shadow: 0px 2px 5px rgba(0, 0, 0, 0.1);
+`;
+
+export const TaskPriority = styled.div<{ color: string }>`
+    select {
+        background: transparent;
+        border: none;
+        color: ${({ color = 'black' }) => color};
+        font-size: 12px;
+        font-weight: bold;
+        cursor: pointer;
+        outline: none;
+    }
+
+    width: 79px;
+    height: 24px;
+    padding: 4px 8px 4px 8px;
+    background: ${({ color = 'black' }) => color}15;
+    border-radius: 15px;
+    color: ${({ color = 'black' }) => color};
+    font-weight: 700;
+    font-size: 12px;
+`;
+
+export const TaskTitleInput = styled.input`
+    font-size: 16px;
+    font-weight: bold;
+    border: none;
+    outline: none;
+    padding: 5px;
+    width: 100%;
+`;
+
+export const TaskDescriptionInput = styled.input`
+    font-size: 14px;
+    border: none;
+    outline: none;
+    padding: 5px;
+    width: 100%;
+    color: #666;
+`;
+
+export const ButtonsContainer = styled.div`
+    display: flex;
+    justify-content: flex-end;
+    gap: 5px;
+    margin-top: 5px;
+`;
+
+export const SaveButton = styled.button`
+    background-color: transparent;
+    color: #4caf50;
+    font-weight: 600;
+    padding: 5px 5px;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    font-size: 14px;
+`;
+
+export const CancelButton = styled.button`
+    background-color: transparent;
+    color: #e74c3c;
+    font-weight: 600;
+    padding: 5px 10px;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    font-size: 14px;
+`;

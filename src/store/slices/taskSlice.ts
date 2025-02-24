@@ -1,11 +1,16 @@
 import { createSlice, PayloadAction } from '@reduxjs/toolkit';
 
+interface Priority {
+    label: 'Low' | 'Medium' | 'High';
+    color: string;
+}
+
 interface Task {
     id: string;
     columnId: string;
     title: string;
     description: string;
-    priority?: 'Low' | 'Medium' | 'High';
+    priority?: Priority;
 }
 
 interface TasksState {
