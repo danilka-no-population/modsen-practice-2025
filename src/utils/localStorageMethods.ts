@@ -7,16 +7,18 @@ export const loadState = () => {
             return JSON.parse(serializedState);
         }
     } catch (e) {
+        // @ts-ignore
         console.log(`Ошибка загрузки: ${e.message}`);
         return undefined;
     }
 };
-
-export const saveState = (state: any) => {
+// @ts-ignore
+export const saveState = (state) => {
     try {
         const serializedState = JSON.stringify(state);
         localStorage.setItem('kanbanState', serializedState);
     } catch (e) {
+        // @ts-ignore
         console.log(`Ошибка сохранения: ${e.message}`);
     }
 };
