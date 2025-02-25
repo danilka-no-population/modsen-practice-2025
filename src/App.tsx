@@ -11,9 +11,13 @@ import {
     DragEndEvent,
     DragOverlay,
     DragStartEvent,
+    MouseSensor,
+    TouchSensor,
+    useSensor,
+    useSensors,
 } from '@dnd-kit/core';
 import { arrayMove } from '@dnd-kit/sortable';
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 
 function App() {
     const dispatch = useAppDispatch();
@@ -21,6 +25,16 @@ function App() {
     const columns = useAppSelector((state) => state.columns.columns);
 
     const [activeTask, setActiveTask] = useState<Task | null>(null);
+
+    const sensors = useSensors(
+        useSensor(MouseSensor),
+        useSensor(TouchSensor, {
+            activationConstraint: {
+                delay: 150,
+                tolerance: 5,
+            },
+        })
+    );
 
     const handleDragStart = (event: DragStartEvent) => {
         const taskId = event.active.id.toString();
@@ -85,11 +99,20 @@ function App() {
         setActiveTask(null);
     };
 
+    useEffect(() => {
+        if (activeTask) {
+            document.body.classList.add('dragging');
+        } else {
+            document.body.classList.remove('dragging');
+        }
+    }, [activeTask]);
+
     return (
         <>
             <GlobalStyles />
             <Header />
             <DndContext
+                sensors={sensors}
                 collisionDetection={closestCorners}
                 onDragStart={handleDragStart}
                 onDragEnd={handleDragEnd}
