@@ -19,6 +19,11 @@ import {
     TasksWrapper,
     TaskTitleInput,
 } from './styled';
+import { useDroppable } from '@dnd-kit/core';
+import {
+    SortableContext,
+    verticalListSortingStrategy,
+} from '@dnd-kit/sortable';
 import { FC, useState } from 'react';
 import { v4 as uuidv4 } from 'uuid';
 
@@ -47,6 +52,8 @@ const Column: FC<ColumnProps> = ({ id, title, color }) => {
         High: '#EF4444',
     } as const;
 
+    const { setNodeRef } = useDroppable({ id });
+
     const handleAddTask = () => {
         if (titleInput.trim() === '') return;
 
@@ -69,7 +76,7 @@ const Column: FC<ColumnProps> = ({ id, title, color }) => {
     };
 
     return (
-        <ColumnWrapper>
+        <ColumnWrapper ref={setNodeRef}>
             <ColumnHeader color={color}>
                 <div>
                     <TaskCount color={color}>{tasks.length}</TaskCount>
@@ -79,68 +86,80 @@ const Column: FC<ColumnProps> = ({ id, title, color }) => {
                     <Icon src={whitePlus} alt="Add task" />
                 </AddTaskButton>
             </ColumnHeader>
-            <TasksWrapper>
-                {tasks.map((task) => (
-                    <TaskCard key={task.id} {...task} />
-                ))}
+            <SortableContext
+                items={tasks
+                    .filter((task) => task !== null)
+                    .map((task) => task.id)}
+                strategy={verticalListSortingStrategy}
+            >
+                <TasksWrapper>
+                    {tasks
+                        .filter((task) => task !== null)
+                        .map((task) => (
+                            <TaskCard key={task.id} {...task} />
+                        ))}
 
-                {isAddingTask && (
-                    <AddTaskForm>
-                        <TaskPriority
-                            color={
-                                priority
-                                    ? priorityColors[
-                                          priority as 'Low' | 'Medium' | 'High'
-                                      ]
-                                    : '#989ca6'
-                            }
-                        >
-                            <select
-                                value={priority ?? ''}
-                                onChange={(e) =>
-                                    setPriority(
-                                        e.target.value
-                                            ? (e.target
-                                                  .value as keyof typeof priorityColors)
-                                            : null
-                                    )
+                    {isAddingTask && (
+                        <AddTaskForm>
+                            <TaskPriority
+                                color={
+                                    priority
+                                        ? priorityColors[
+                                              priority as
+                                                  | 'Low'
+                                                  | 'Medium'
+                                                  | 'High'
+                                          ]
+                                        : '#989ca6'
                                 }
                             >
-                                <option value="">None</option>
-                                <option value="Low">Low</option>
-                                <option value="Medium">Medium</option>
-                                <option value="High">High</option>
-                            </select>
-                        </TaskPriority>
+                                <select
+                                    value={priority ?? ''}
+                                    onChange={(e) =>
+                                        setPriority(
+                                            e.target.value
+                                                ? (e.target
+                                                      .value as keyof typeof priorityColors)
+                                                : null
+                                        )
+                                    }
+                                >
+                                    <option value="">None</option>
+                                    <option value="Low">Low</option>
+                                    <option value="Medium">Medium</option>
+                                    <option value="High">High</option>
+                                </select>
+                            </TaskPriority>
 
-                        <TaskTitleInput
-                            type="text"
-                            placeholder="Task title..."
-                            value={titleInput}
-                            onChange={(e) => setTitleInput(e.target.value)}
-                        />
-                        <TaskDescriptionInput
-                            type="text"
-                            placeholder="Task description..."
-                            value={descriptionInput}
-                            onChange={(e) =>
-                                setDescriptionInput(e.target.value)
-                            }
-                        />
+                            <TaskTitleInput
+                                type="text"
+                                placeholder="Task title..."
+                                value={titleInput}
+                                onChange={(e) => setTitleInput(e.target.value)}
+                            />
+                            <TaskDescriptionInput
+                                type="text"
+                                placeholder="Task description..."
+                                value={descriptionInput}
+                                onChange={(e) =>
+                                    setDescriptionInput(e.target.value)
+                                }
+                            />
 
-                        <ButtonsContainer>
-                            <SaveButton onClick={handleAddTask}>
-                                Save
-                            </SaveButton>
-                            <CancelButton
-                                onClick={() => setIsAddingTask(false)}
-                            >
-                                Cancel
-                            </CancelButton>
-                        </ButtonsContainer>
-                    </AddTaskForm>
-                )}
-            </TasksWrapper>
+                            <ButtonsContainer>
+                                <SaveButton onClick={handleAddTask}>
+                                    Save
+                                </SaveButton>
+                                <CancelButton
+                                    onClick={() => setIsAddingTask(false)}
+                                >
+                                    Cancel
+                                </CancelButton>
+                            </ButtonsContainer>
+                        </AddTaskForm>
+                    )}
+                </TasksWrapper>
+            </SortableContext>
             <AddTask color={color} onClick={() => setIsAddingTask(true)}>
                 <div>Add task...</div>
             </AddTask>
