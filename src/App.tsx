@@ -53,15 +53,7 @@ function App() {
             const targetTasks = tasks.filter(
                 (task) => task.columnId === targetColumnId
             );
-            const newIndex = overId
-                ? targetTasks.findIndex((task) => task.id === overId)
-                : targetTasks.length;
-
-            const updatedTaskOrder = [
-                ...targetTasks.slice(0, newIndex),
-                movingTask,
-                ...targetTasks.slice(newIndex),
-            ];
+            const updatedTaskOrder = [movingTask, ...targetTasks];
 
             dispatch(
                 reorderTasks({
