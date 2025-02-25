@@ -16,6 +16,7 @@ const GlobalStyles = createGlobalStyle`
         transition: background 0.3s ease-in-out;
         min-width: 100vw;
         min-height: 100vh;
+        touch-action: none;
         @media (max-width: 768px) {
             background: #F1F5F9;
         }
