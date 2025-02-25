@@ -5,7 +5,7 @@ interface Priority {
     color: string;
 }
 
-interface Task {
+export interface Task {
     id: string;
     columnId: string;
     title: string;
@@ -52,8 +52,22 @@ const tasksSlice = createSlice({
                 task.columnId = action.payload.newColumnId;
             }
         },
+        reorderTasks: (
+            state,
+            action: PayloadAction<{ columnId: string; newOrder: string[] }>
+        ) => {
+            const { columnId, newOrder } = action.payload;
+            const filteredTasks = state.tasks.filter(
+                (task) => task.columnId !== columnId
+            );
+            const reorderedTasks = newOrder
+                .map((id) => state.tasks.find((task) => task.id === id))
+                .filter((task): task is Task => !!task);
+            state.tasks = [...filteredTasks, ...reorderedTasks];
+        },
     },
 });
 
-export const { addTask, removeTask, editTask, moveTask } = tasksSlice.actions;
+export const { addTask, removeTask, editTask, moveTask, reorderTasks } =
+    tasksSlice.actions;
 export default tasksSlice.reducer;
