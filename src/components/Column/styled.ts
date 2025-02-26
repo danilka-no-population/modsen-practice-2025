@@ -174,11 +174,12 @@ export const TaskTitleInput = styled.input`
 
 export const TaskDescriptionInput = styled.input`
     font-size: 14px;
+    font-wight: 600;
     border: none;
     outline: none;
     padding: 5px;
     width: 100%;
-    color: #666;
+    color: #64748b;
 `;
 
 export const ButtonsContainer = styled.div`

@@ -96,7 +96,7 @@ const Column: FC<ColumnProps> = ({ id, title, color }) => {
                     {tasks
                         .filter((task) => task !== null)
                         .map((task) => (
-                            <TaskCard key={task.id} {...task} />
+                            <TaskCard key={task.id} {...task} columnId={id} />
                         ))}
 
                     {isAddingTask && (

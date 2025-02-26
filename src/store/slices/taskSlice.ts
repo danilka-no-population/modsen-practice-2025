@@ -1,6 +1,6 @@
 import { createSlice, PayloadAction } from '@reduxjs/toolkit';
 
-interface Priority {
+export interface Priority {
     label: 'Low' | 'Medium' | 'High';
     color: string;
 }

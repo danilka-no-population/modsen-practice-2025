@@ -134,6 +134,7 @@ function App() {
                             title={activeTask.title}
                             description={activeTask.description}
                             priority={activeTask.priority}
+                            columnId={activeTask.columnId}
                         />
                     ) : null}
                 </DragOverlay>
