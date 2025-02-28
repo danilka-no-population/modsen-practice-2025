@@ -1,5 +1,4 @@
-import Column from './components/Column/Column';
-import { BoardWrapper } from './components/Column/styled';
+import Board from './components/Board';
 import Header from './components/Header/Header';
 import TaskCard from './components/TaskCard/TaskCard';
 import { useAppDispatch, useAppSelector } from './hooks/typedReduxHooks';
@@ -25,6 +24,7 @@ function App() {
     const columns = useAppSelector((state) => state.columns.columns);
 
     const [activeTask, setActiveTask] = useState<Task | null>(null);
+    const [isAddingColumn, setIsAddingColumn] = useState<boolean>(false);
 
     const sensors = useSensors(
         useSensor(MouseSensor),
@@ -110,7 +110,7 @@ function App() {
     return (
         <>
             <GlobalStyles />
-            <Header />
+            <Header setIsAddingColumn={setIsAddingColumn} />
             <DndContext
                 sensors={sensors}
                 collisionDetection={closestCorners}
@@ -118,15 +118,10 @@ function App() {
                 onDragEnd={handleDragEnd}
                 onDragCancel={() => setActiveTask(null)}
             >
-                <BoardWrapper>
-                    <Column id="todo" title={'To Do'} color="#4F46E5" />
-                    <Column
-                        id="in-progress"
-                        title={'In progress'}
-                        color="#F59E0B"
-                    />
-                    <Column id="done" title={'Done'} color="#22C55E" />
-                </BoardWrapper>
+                <Board
+                    isAddingColumn={isAddingColumn}
+                    setIsAddingColumn={setIsAddingColumn}
+                />
                 <DragOverlay>
                     {activeTask ? (
                         <TaskCard
