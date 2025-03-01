@@ -13,6 +13,7 @@ import {
     AddColumnTitle,
     AddColumnWrapper,
     ColorWrapper,
+    NoColumnsText,
 } from './styled';
 import { useState } from 'react';
 import { HuePicker } from 'react-color';
@@ -94,6 +95,12 @@ const Board = ({ isAddingColumn, setIsAddingColumn }: BoardProps) => {
                         </CancelButton>
                     </AddButtonsContainer>
                 </AddColumnWrapper>
+            )}
+            {columns.length === 0 && isAddingColumn === false && (
+                <NoColumnsText>
+                    There are no columns at the moment, add the first one to
+                    track your assignments😇
+                </NoColumnsText>
             )}
         </BoardWrapper>
     );

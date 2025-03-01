@@ -66,3 +66,15 @@ export const ColorWrapper = styled.div`
     padding: 5px;
     z-index: 1000;
 `;
+
+export const NoColumnsText = styled.div`
+    width: 100%;
+    height: 400px;
+    display: flex;
+    text-align: center;
+    justify-content: center;
+    align-items: center;
+    font-size: 26px;
+    font-weight: bold;
+    padding: 0 40px;
+`;

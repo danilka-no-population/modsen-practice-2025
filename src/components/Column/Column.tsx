@@ -1,6 +1,7 @@
 import whitePlus from '../../assets/icons/whitePlus.png';
 import { useAppDispatch, useAppSelector } from '../../hooks/typedReduxHooks';
-import { addTask } from '../../store/slices/taskSlice';
+import { removeColumn } from '../../store/slices/columnSlice';
+import { addTask, removeTasksByColumnId } from '../../store/slices/taskSlice';
 import { Icon } from '../Header/styled';
 import TaskCard from '../TaskCard/TaskCard';
 import {
@@ -12,6 +13,8 @@ import {
     ColumnHeader,
     ColumnTitle,
     ColumnWrapper,
+    Container,
+    DeleteColumnButton,
     SaveButton,
     TaskCount,
     TaskDescriptionInput,
@@ -75,16 +78,31 @@ const Column: FC<ColumnProps> = ({ id, title, color }) => {
         setPriority(null);
     };
 
+    const handleRemoveColumn = () => {
+        if (confirm('Are you sure you want to delete the column?')) {
+            dispatch(removeColumn(id));
+            dispatch(removeTasksByColumnId(id));
+        }
+    };
+
     return (
         <ColumnWrapper ref={setNodeRef}>
             <ColumnHeader color={color}>
-                <div>
+                <Container>
                     <TaskCount color={color}>{tasks.length}</TaskCount>
                     <ColumnTitle>{title}</ColumnTitle>
-                </div>
-                <AddTaskButton onClick={() => setIsAddingTask(true)}>
-                    <Icon src={whitePlus} alt="Add task" />
-                </AddTaskButton>
+                </Container>
+                <Container>
+                    <DeleteColumnButton
+                        color={color}
+                        onClick={handleRemoveColumn}
+                    >
+                        Delete
+                    </DeleteColumnButton>
+                    <AddTaskButton onClick={() => setIsAddingTask(true)}>
+                        <Icon src={whitePlus} alt="Add task" />
+                    </AddTaskButton>
+                </Container>
             </ColumnHeader>
             <SortableContext
                 items={tasks

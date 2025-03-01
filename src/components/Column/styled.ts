@@ -51,6 +51,7 @@ export const ColumnHeader = styled.div<ColumnHeaderProps>`
     font-size: 16px;
     line-height: 22px;
     height: 48px;
+    box-shadow: 4px 4px 10px rgba(0, 0, 0, 0.2);
     div {
         display: flex;
         align-items: center;
@@ -209,4 +210,17 @@ export const CancelButton = styled.button`
     border-radius: 5px;
     cursor: pointer;
     font-size: 14px;
+`;
+
+export const Container = styled.div``;
+
+export const DeleteColumnButton = styled.button<ColumnHeaderProps>`
+    color: ${({ color = 'black' }) => color}90;
+    font-weight: bold;
+    font-size: 12px;
+    padding: 5px 10px;
+    border: none;
+    border-radius: 24px;
+    cursor: pointer;
+    box-shadow: 4px 4px 10px rgba(0, 0, 0, 0.1);
 `;
