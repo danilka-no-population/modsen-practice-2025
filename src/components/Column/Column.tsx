@@ -85,6 +85,13 @@ const Column: FC<ColumnProps> = ({ id, title, color }) => {
         }
     };
 
+    const handleCancelTask = () => {
+        setIsAddingTask(false);
+        setTitleInput('');
+        setDescriptionInput('');
+        setPriority(null);
+    };
+
     return (
         <ColumnWrapper ref={setNodeRef}>
             <ColumnHeader color={color}>
@@ -168,9 +175,7 @@ const Column: FC<ColumnProps> = ({ id, title, color }) => {
                                 <SaveButton onClick={handleAddTask}>
                                     Save
                                 </SaveButton>
-                                <CancelButton
-                                    onClick={() => setIsAddingTask(false)}
-                                >
+                                <CancelButton onClick={handleCancelTask}>
                                     Cancel
                                 </CancelButton>
                             </ButtonsContainer>
