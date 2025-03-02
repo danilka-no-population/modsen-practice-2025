@@ -8,7 +8,7 @@ const GlobalStyles = createGlobalStyle`
     }
 
     body {
-        font-family: "Plus Jakarta Sans", serif;
+        font-family: "Plus Jakarta Sans", "Roboto", serif;
         font-optical-sizing: auto;
         font-style: normal;
         color: #1E293B;
@@ -16,11 +16,28 @@ const GlobalStyles = createGlobalStyle`
         transition: background 0.3s ease-in-out;
         min-width: 100vw;
         min-height: 100vh;
-        body.dragging {
-            touch-action: none;
+        scroll-behavior: smooth;
+
+        ::-webkit-scrollbar {
+            width: 13px;
+            height: 13px;
         }
-        @media (max-width: 768px) {
-            background: #F1F5F9;
+
+        ::-webkit-scrollbar-track {
+            background: #f0f0f0;
+            border-radius: 10px;
+        }
+
+        ::-webkit-scrollbar-thumb {
+            background: linear-gradient(45deg, #6a11cb, #2575fc);
+            transition: background 1s ease;
+            border-radius: 10px;
+            border: 2px solid #f0f0f0;
+        }
+
+        ::-webkit-scrollbar-thumb:hover {
+            transition: background 1s ease;
+            background: linear-gradient(45deg,rgb(14, 55, 203), #1b5bfc);
         }
     }
 `;

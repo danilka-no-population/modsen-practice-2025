@@ -20,7 +20,7 @@ import {
 } from './styled';
 import { useSortable } from '@dnd-kit/sortable';
 import { CSS } from '@dnd-kit/utilities';
-import { FC, useState } from 'react';
+import { FC, useEffect, useRef, useState } from 'react';
 
 interface TaskProps {
     id: string;
@@ -57,7 +57,44 @@ const TaskCard: FC<TaskProps> = ({
         useState<string>(description);
     const [priorityInput, setPriorityInput] = useState(priority?.label || '');
 
+    const titleInputRef = useRef<HTMLInputElement>(null);
+    const descriptionInputRef = useRef<HTMLInputElement>(null);
+    const isFirstClickTitle = useRef(true);
+    const isFirstClickDescription = useRef(true);
+
+    const handleTitleClick = () => {
+        if (titleInputRef.current) {
+            if (isFirstClickTitle.current) {
+                const length = titleInputRef.current.value.length;
+                titleInputRef.current.setSelectionRange(length, length);
+                titleInputRef.current.scrollLeft =
+                    titleInputRef.current.scrollWidth;
+                isFirstClickTitle.current = false;
+            }
+        }
+    };
+
+    const handleDescriptionClick = () => {
+        if (descriptionInputRef.current) {
+            if (isFirstClickDescription.current) {
+                const length = descriptionInputRef.current.value.length;
+                descriptionInputRef.current.setSelectionRange(length, length);
+                descriptionInputRef.current.scrollLeft =
+                    descriptionInputRef.current.scrollWidth;
+                isFirstClickDescription.current = false;
+            }
+        }
+    };
+
+    useEffect(() => {
+        if (!isEditing) {
+            isFirstClickTitle.current = true;
+            isFirstClickDescription.current = true;
+        }
+    }, [isEditing]);
+
     const dispatch = useAppDispatch();
+
     const handleSave = () => {
         if (titleInput.trim() === '') return;
 
@@ -128,6 +165,8 @@ const TaskCard: FC<TaskProps> = ({
                             value={titleInput}
                             onChange={(e) => setTitleInput(e.target.value)}
                             placeholder="Task title..."
+                            ref={titleInputRef}
+                            onClick={handleTitleClick}
                         />
                         <TaskDescriptionInput
                             type="text"
@@ -136,6 +175,8 @@ const TaskCard: FC<TaskProps> = ({
                                 setDescriptionInput(e.target.value)
                             }
                             placeholder="Task description..."
+                            ref={descriptionInputRef}
+                            onClick={handleDescriptionClick}
                         />
                         <ButtonsContainer>
                             <SaveButton

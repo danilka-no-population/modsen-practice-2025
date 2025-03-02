@@ -31,7 +31,7 @@ import {
     verticalListSortingStrategy,
 } from '@dnd-kit/sortable';
 import { CSS } from '@dnd-kit/utilities';
-import { FC, useState } from 'react';
+import { FC, useEffect, useRef, useState } from 'react';
 import { v4 as uuidv4 } from 'uuid';
 
 interface ColumnProps {
@@ -73,6 +73,37 @@ const Column: FC<ColumnProps> = ({ id, title, color }) => {
         transform: CSS.Transform.toString(transform),
         transition,
     };
+
+    const addTaskFormRef = useRef<HTMLDivElement>(null);
+
+    useEffect(() => {
+        if (isAddingTask && addTaskFormRef.current) {
+            addTaskFormRef.current.scrollIntoView({
+                behavior: 'smooth',
+                block: 'nearest',
+            });
+        }
+    }, [isAddingTask]);
+
+    useEffect(() => {
+        const handleClickOutside = (event: MouseEvent) => {
+            if (
+                isAddingTask &&
+                addTaskFormRef.current &&
+                !addTaskFormRef.current.contains(event.target as Node)
+            ) {
+                setIsAddingTask(false);
+                setTitleInput('');
+                setDescriptionInput('');
+                setPriority(null);
+            }
+        };
+        document.addEventListener('mousedown', handleClickOutside);
+
+        return () => {
+            document.removeEventListener('mousedown', handleClickOutside);
+        };
+    }, [isAddingTask]);
 
     const handleAddTask = () => {
         if (titleInput.trim() === '') return;
@@ -148,7 +179,7 @@ const Column: FC<ColumnProps> = ({ id, title, color }) => {
                     )}
 
                     {isAddingTask && (
-                        <AddTaskForm>
+                        <AddTaskForm ref={addTaskFormRef}>
                             <TaskPriority
                                 color={
                                     priority
