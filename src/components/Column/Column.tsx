@@ -15,6 +15,8 @@ import {
     ColumnWrapper,
     Container,
     DeleteColumnButton,
+    DraggableContainer,
+    NoTasksText,
     SaveButton,
     TaskCount,
     TaskDescriptionInput,
@@ -25,8 +27,10 @@ import {
 import { useDroppable } from '@dnd-kit/core';
 import {
     SortableContext,
+    useSortable,
     verticalListSortingStrategy,
 } from '@dnd-kit/sortable';
+import { CSS } from '@dnd-kit/utilities';
 import { FC, useState } from 'react';
 import { v4 as uuidv4 } from 'uuid';
 
@@ -56,6 +60,19 @@ const Column: FC<ColumnProps> = ({ id, title, color }) => {
     } as const;
 
     const { setNodeRef } = useDroppable({ id });
+
+    const {
+        attributes,
+        listeners,
+        setNodeRef: setColumnNodeRef,
+        transform,
+        transition,
+    } = useSortable({ id });
+
+    const style = {
+        transform: CSS.Transform.toString(transform),
+        transition,
+    };
 
     const handleAddTask = () => {
         if (titleInput.trim() === '') return;
@@ -93,12 +110,12 @@ const Column: FC<ColumnProps> = ({ id, title, color }) => {
     };
 
     return (
-        <ColumnWrapper ref={setNodeRef}>
+        <ColumnWrapper ref={setColumnNodeRef} style={style}>
             <ColumnHeader color={color}>
-                <Container>
+                <DraggableContainer {...attributes} {...listeners}>
                     <TaskCount color={color}>{tasks.length}</TaskCount>
                     <ColumnTitle>{title}</ColumnTitle>
-                </Container>
+                </DraggableContainer>
                 <Container>
                     <DeleteColumnButton
                         color={color}
@@ -117,12 +134,18 @@ const Column: FC<ColumnProps> = ({ id, title, color }) => {
                     .map((task) => task.id)}
                 strategy={verticalListSortingStrategy}
             >
-                <TasksWrapper>
+                <TasksWrapper ref={setNodeRef}>
                     {tasks
                         .filter((task) => task !== null)
                         .map((task) => (
                             <TaskCard key={task.id} {...task} columnId={id} />
                         ))}
+                    {tasks.length === 0 && !isAddingTask && (
+                        <NoTasksText>
+                            There are no tasks in the column, add the first
+                            one😇
+                        </NoTasksText>
+                    )}
 
                     {isAddingTask && (
                         <AddTaskForm>

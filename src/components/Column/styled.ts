@@ -21,7 +21,7 @@ export const ColumnWrapper = styled.div`
     background: #ffffff;
     border-radius: 16px;
     padding: 16px;
-    flex: 1;
+
     min-width: 280px;
     max-width: 400px;
     display: flex;
@@ -130,6 +130,7 @@ export const TasksWrapper = styled.div`
     display: flex;
     flex-direction: column;
     gap: 12px;
+    min-height: 100px;
 `;
 
 export const AddTaskForm = styled.div`
@@ -223,4 +224,25 @@ export const DeleteColumnButton = styled.button<ColumnHeaderProps>`
     border-radius: 24px;
     cursor: pointer;
     box-shadow: 4px 4px 10px rgba(0, 0, 0, 0.1);
+`;
+
+export const DraggableContainer = styled.div`
+    width: 100%;
+    height: 100%;
+    cursor: grab;
+    user-select: none;
+`;
+
+export const NoTasksText = styled.div`
+    width: 100%;
+    height: 100%;
+    min-height: 100px;
+    display: flex;
+    text-align: center;
+    justify-content: center;
+    align-items: center;
+    fontsize: '14px';
+    font-weight: bold;
+    padding: 0 40px;
+    opacity: 0.5;
 `;

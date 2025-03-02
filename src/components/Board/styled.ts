@@ -9,8 +9,7 @@ export const AddColumnWrapper = styled.div`
     border-radius: 16px;
     padding: 16px;
     flex: 1;
-    min-width: 280px;
-    max-width: 400px;
+    height: 180px;
     display: flex;
     flex-direction: column;
     gap: 16px;
@@ -69,7 +68,8 @@ export const ColorWrapper = styled.div`
 
 export const NoColumnsText = styled.div`
     width: 100%;
-    height: 400px;
+    height: 100%;
+    min-height: 100px;
     display: flex;
     text-align: center;
     justify-content: center;
@@ -77,4 +77,26 @@ export const NoColumnsText = styled.div`
     font-size: 26px;
     font-weight: bold;
     padding: 0 40px;
+    opacity: 0.6;
+`;
+
+export const Wrapper = styled.div`
+    border-radius: 16px;
+    flex: 1;
+    min-width: 280px;
+    max-width: 400px;
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+
+    transition: 0.3s ease-in-out;
+    background: #f8fafc;
+    background: transparent;
+
+    @media (max-width: 768px) {
+        background: transparent;
+        box-shadow: none;
+        width: 100%;
+        max-width: none;
+    }
 `;

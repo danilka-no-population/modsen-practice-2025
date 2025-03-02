@@ -14,6 +14,7 @@ import {
     AddColumnWrapper,
     ColorWrapper,
     NoColumnsText,
+    Wrapper,
 } from './styled';
 import { useState } from 'react';
 import { HuePicker } from 'react-color';
@@ -56,12 +57,14 @@ const Board = ({ isAddingColumn, setIsAddingColumn }: BoardProps) => {
     return (
         <BoardWrapper>
             {columns.map((column) => (
-                <Column
-                    key={column.id}
-                    id={column.id}
-                    title={column.title}
-                    color={column.color}
-                />
+                <Wrapper>
+                    <Column
+                        key={column.id}
+                        id={column.id}
+                        title={column.title}
+                        color={column.color}
+                    />
+                </Wrapper>
             ))}
             {isAddingColumn && (
                 <AddColumnWrapper>

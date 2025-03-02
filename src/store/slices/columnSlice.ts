@@ -1,6 +1,6 @@
 import { createSlice, PayloadAction } from '@reduxjs/toolkit';
 
-interface Column {
+export interface Column {
     id: string;
     title: string;
     color: string;
@@ -30,8 +30,11 @@ const columnsSlice = createSlice({
                 (col) => col.id !== action.payload
             );
         },
+        reorderColumns: (state, action: PayloadAction<Column[]>) => {
+            state.columns = action.payload;
+        },
     },
 });
 
-export const { addColumn, removeColumn } = columnsSlice.actions;
+export const { addColumn, removeColumn, reorderColumns } = columnsSlice.actions;
 export default columnsSlice.reducer;
