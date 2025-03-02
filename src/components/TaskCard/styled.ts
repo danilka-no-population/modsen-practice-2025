@@ -13,6 +13,7 @@ export const TaskWrapper = styled.div`
     flex-direction: column;
     gap: 8px;
     cursor: grab;
+    position: relative;
     &:active {
         cursor: grabbing;
     }
@@ -33,12 +34,18 @@ export const TaskHeader = styled.h3`
     font-weight: bold;
     margin: 0;
     color: #1e293b;
+    word-wrap: break-word;
+    white-space: normal;
+    max-width: calc(100% - 60px);
 `;
 
 export const TaskDescription = styled.p`
     font-size: 14px;
     color: #64748b;
     margin: 0;
+    word-wrap: break-word;
+    white-space: normal;
+    max-width: calc(100% - 0px);
 `;
 
 export const TaskActions = styled.div`
