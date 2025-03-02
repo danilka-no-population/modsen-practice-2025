@@ -8,7 +8,7 @@ const GlobalStyles = createGlobalStyle`
     }
 
     body {
-        font-family: "Plus Jakarta Sans", serif;
+        font-family: "Plus Jakarta Sans", "Roboto", serif;
         font-optical-sizing: auto;
         font-style: normal;
         color: #1E293B;

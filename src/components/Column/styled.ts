@@ -62,10 +62,13 @@ export const ColumnHeader = styled.div<ColumnHeaderProps>`
     line-height: 22px;
     height: 48px;
     box-shadow: 4px 4px 10px rgba(0, 0, 0, 0.2);
+    min-height: 48px;
+    height: auto;
     div {
         display: flex;
         align-items: center;
         gap: 10px;
+        max-width: 70%;
     }
 `;
 
@@ -80,11 +83,16 @@ export const TaskCount = styled.span<ColumnHeaderProps>`
     justify-content: center;
     font-size: 14px;
     font-weight: bold;
+    flex-shrink: 0;
 `;
 
 export const ColumnTitle = styled.h2`
     font-size: 16px;
     margin: 0;
+    word-wrap: break-word;
+    white-space: normal;
+    max-width: calc(100% - 45px);
+    flex-grow: 1;
 `;
 
 export const AddTaskButton = styled.button`
@@ -96,6 +104,7 @@ export const AddTaskButton = styled.button`
     display: flex;
     width: 20px;
     height: 20px;
+    flex-shrink: 0;
     &:hover {
         transition: 0.3s ease-in-out;
         width: 24px;
@@ -234,6 +243,7 @@ export const DeleteColumnButton = styled.button<ColumnHeaderProps>`
     border-radius: 24px;
     cursor: pointer;
     box-shadow: 4px 4px 10px rgba(0, 0, 0, 0.1);
+    flex-shrink: 0;
 `;
 
 export const DraggableContainer = styled.div`
