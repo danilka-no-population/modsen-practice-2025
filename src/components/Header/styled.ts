@@ -12,6 +12,12 @@ export const HeaderContainer = styled.header`
         background-color: #ffffff;
         box-shadow: 0px 2px 5px rgba(0, 0, 0, 0.1);
         height: 64px;
+
+        position: sticky;
+        top: 0;
+        left: 0;
+        right: 0;
+        z-index: 1000;
     }
 `;
 
@@ -94,16 +100,15 @@ export const MenuWrapper = styled.div`
 `;
 
 export const MenuItem = styled.button`
-    background: none;
-    border: none;
+    background: #4f46e530;
+    border: 2px solid #4f46e550;
+    box-shadow: 0px 2px 5px rgba(45, 1, 245, 0.2);
+    border-radius: 10px;
     padding: 10px 15px;
     font-size: 1rem;
-    color: #475569;
+    color: #4f46e5;
+    font-weight: 700;
     cursor: pointer;
     width: 100%;
     text-align: center;
-
-    &:hover {
-        background: #f1f5f9;
-    }
 `;

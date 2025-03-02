@@ -9,7 +9,7 @@ import {
     MenuWrapper,
     Title,
 } from './styled';
-import { FC, useState } from 'react';
+import { FC, useEffect, useRef, useState } from 'react';
 
 interface HeaderProps {
     // eslint-disable-next-line no-unused-vars
@@ -22,9 +22,26 @@ const Header: FC<HeaderProps> = ({ setIsAddingColumn }) => {
         setIsAddingColumn(true);
         setIsMenuOpen(false);
     };
+    const headerRef = useRef<HTMLDivElement>(null);
+    useEffect(() => {
+        const handleClickOutside = (event: MouseEvent) => {
+            if (
+                isMenuOpen &&
+                headerRef.current &&
+                !headerRef.current.contains(event.target as Node)
+            ) {
+                setIsMenuOpen(false);
+            }
+        };
+        document.addEventListener('mousedown', handleClickOutside);
+
+        return () => {
+            document.removeEventListener('mousedown', handleClickOutside);
+        };
+    }, [isMenuOpen]);
 
     return (
-        <HeaderContainer>
+        <HeaderContainer ref={headerRef}>
             <BurgerButton onClick={() => setIsMenuOpen(!isMenuOpen)}>
                 <Icon src={burgerIcon} alt="Burger-button" />
             </BurgerButton>

@@ -16,7 +16,7 @@ import {
     NoColumnsText,
     Wrapper,
 } from './styled';
-import { useState } from 'react';
+import { useEffect, useRef, useState } from 'react';
 import { HuePicker } from 'react-color';
 import { v4 as uuidv4 } from 'uuid';
 
@@ -54,6 +54,36 @@ const Board = ({ isAddingColumn, setIsAddingColumn }: BoardProps) => {
         setNewColumnColor('#8A8A8A');
     };
 
+    const addColumnFormRef = useRef<HTMLDivElement>(null);
+
+    useEffect(() => {
+        if (isAddingColumn && addColumnFormRef.current) {
+            addColumnFormRef.current.scrollIntoView({
+                behavior: 'smooth',
+                block: 'nearest',
+            });
+        }
+    }, [isAddingColumn]);
+
+    useEffect(() => {
+        const handleClickOutside = (event: MouseEvent) => {
+            if (
+                isAddingColumn &&
+                addColumnFormRef.current &&
+                !addColumnFormRef.current.contains(event.target as Node)
+            ) {
+                setIsAddingColumn(false);
+                setNewColumnTitle('');
+                setNewColumnColor('#8A8A8A');
+            }
+        };
+        document.addEventListener('mousedown', handleClickOutside);
+
+        return () => {
+            document.removeEventListener('mousedown', handleClickOutside);
+        };
+    }, [isAddingColumn, setIsAddingColumn]);
+
     return (
         <BoardWrapper>
             {columns.map((column) => (
@@ -67,7 +97,7 @@ const Board = ({ isAddingColumn, setIsAddingColumn }: BoardProps) => {
                 </Wrapper>
             ))}
             {isAddingColumn && (
-                <AddColumnWrapper>
+                <AddColumnWrapper ref={addColumnFormRef}>
                     <AddColumnHeader color={newColumnColor}>
                         <TaskCount color={newColumnColor}>0</TaskCount>
                         <AddColumnTitle

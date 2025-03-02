@@ -10,6 +10,8 @@ export const AddColumnWrapper = styled.div`
     padding: 16px;
 
     height: 180px;
+    min-width: 340px;
+    max-width: 400px;
     display: flex;
     flex-direction: column;
     gap: 16px;
@@ -83,7 +85,7 @@ export const NoColumnsText = styled.div`
 export const Wrapper = styled.div`
     border-radius: 16px;
     flex: 1;
-    min-width: 280px;
+    min-width: 340px;
     max-width: 400px;
     display: flex;
     flex-direction: column;

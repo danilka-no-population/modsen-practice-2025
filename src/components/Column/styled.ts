@@ -8,12 +8,22 @@ export const BoardWrapper = styled.div`
     display: flex;
     gap: 20px;
     padding: 20px;
-    justify-content: center;
+    justify-content: space-evenly;
+
+    overflow-x: auto;
+    overflow-y: auto;
+    align-items: flex-start;
+    height: calc(100vh - 104px);
+    position: relative;
 
     @media (max-width: 768px) {
         flex-direction: column;
         align-items: center;
         background: #f1f5f9;
+
+        overflow-x: hidden;
+        overflow-y: auto;
+        height: auto;
     }
 `;
 
@@ -22,7 +32,7 @@ export const ColumnWrapper = styled.div`
     border-radius: 16px;
     padding: 16px;
 
-    min-width: 280px;
+    min-width: 340px;
     max-width: 400px;
     display: flex;
     flex-direction: column;
