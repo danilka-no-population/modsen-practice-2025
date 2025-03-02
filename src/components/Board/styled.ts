@@ -8,7 +8,7 @@ export const AddColumnWrapper = styled.div`
     background: #ffffff;
     border-radius: 16px;
     padding: 16px;
-    flex: 1;
+
     height: 180px;
     display: flex;
     flex-direction: column;
