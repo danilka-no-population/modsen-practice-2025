@@ -1,3 +1,7 @@
+import {
+    PRIORITY_COLORS,
+    PriorityLevel,
+} from '../../constants/initialPriorities';
 import { useAppDispatch } from '../../hooks/typedReduxHooks';
 import { editTask, removeTask } from '../../store/slices/taskSlice';
 import {
@@ -29,12 +33,6 @@ interface TaskProps {
     description: string;
     priority?: { label: string; color: string };
 }
-
-const priorityColors: Record<'Low' | 'Medium' | 'High', string> = {
-    Low: '#22C55E',
-    Medium: '#F59E0B',
-    High: '#EF4444',
-} as const;
 
 const TaskCard: FC<TaskProps> = ({
     id,
@@ -104,12 +102,11 @@ const TaskCard: FC<TaskProps> = ({
                 columnId,
                 title: titleInput,
                 description: descriptionInput,
-                //@ts-ignore
                 priority: priorityInput
                     ? {
-                          label: priorityInput,
-                          color: priorityColors[
-                              priorityInput as 'Low' | 'Medium' | 'High'
+                          label: priorityInput as PriorityLevel,
+                          color: PRIORITY_COLORS[
+                              priorityInput as PriorityLevel
                           ],
                       }
                     : undefined,
@@ -159,11 +156,8 @@ const TaskCard: FC<TaskProps> = ({
                         <TaskPriority
                             color={
                                 priorityInput
-                                    ? priorityColors[
-                                          priorityInput as
-                                              | 'Low'
-                                              | 'Medium'
-                                              | 'High'
+                                    ? PRIORITY_COLORS[
+                                          priorityInput as PriorityLevel
                                       ]
                                     : '#989ca6'
                             }

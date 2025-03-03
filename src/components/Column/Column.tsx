@@ -1,4 +1,8 @@
 import whitePlus from '../../assets/icons/whitePlus.png';
+import {
+    PRIORITY_COLORS,
+    PriorityLevel,
+} from '../../constants/initialPriorities';
 import { useAppDispatch, useAppSelector } from '../../hooks/typedReduxHooks';
 import { removeColumn } from '../../store/slices/columnSlice';
 import { addTask, removeTasksByColumnId } from '../../store/slices/taskSlice';
@@ -49,15 +53,7 @@ const Column: FC<ColumnProps> = ({ id, title, color }) => {
     const [isAddingTask, setIsAddingTask] = useState<boolean>(false);
     const [titleInput, setTitleInput] = useState<string>('');
     const [descriptionInput, setDescriptionInput] = useState<string>('');
-    const [priority, setPriority] = useState<
-        keyof typeof priorityColors | null
-    >(null);
-
-    const priorityColors: Record<'Low' | 'Medium' | 'High', string> = {
-        Low: '#22C55E',
-        Medium: '#F59E0B',
-        High: '#EF4444',
-    } as const;
+    const [priority, setPriority] = useState<PriorityLevel | null>(null);
 
     const { setNodeRef } = useDroppable({ id });
 
@@ -115,7 +111,7 @@ const Column: FC<ColumnProps> = ({ id, title, color }) => {
                 title: titleInput,
                 description: descriptionInput,
                 priority: priority
-                    ? { label: priority, color: priorityColors[priority] }
+                    ? { label: priority, color: PRIORITY_COLORS[priority] }
                     : undefined,
             })
         );
@@ -147,7 +143,7 @@ const Column: FC<ColumnProps> = ({ id, title, color }) => {
     const handlePriorityChange = (e: React.ChangeEvent<HTMLSelectElement>) => {
         setPriority(
             e.target.value
-                ? (e.target.value as keyof typeof priorityColors)
+                ? (e.target.value as keyof typeof PRIORITY_COLORS)
                 : null
         );
     };
@@ -205,12 +201,7 @@ const Column: FC<ColumnProps> = ({ id, title, color }) => {
                             <TaskPriority
                                 color={
                                     priority
-                                        ? priorityColors[
-                                              priority as
-                                                  | 'Low'
-                                                  | 'Medium'
-                                                  | 'High'
-                                          ]
+                                        ? PRIORITY_COLORS[priority]
                                         : '#989ca6'
                                 }
                             >
