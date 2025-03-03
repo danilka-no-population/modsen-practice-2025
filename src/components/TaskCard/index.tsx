@@ -171,7 +171,10 @@ const TaskCard: FC<TaskProps> = ({
                                 onChange={handlePriorityInputChange}
                             >
                                 {PRIORITIES.map((priority) => (
-                                    <PriorityOption value={priority.value}>
+                                    <PriorityOption
+                                        value={priority.value}
+                                        key={priority.value}
+                                    >
                                         {priority.text}
                                     </PriorityOption>
                                 ))}

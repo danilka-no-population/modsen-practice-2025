@@ -98,7 +98,7 @@ const Board = ({ isAddingColumn, setIsAddingColumn }: BoardProps) => {
     return (
         <BoardWrapper>
             {columns.map((column) => (
-                <Wrapper>
+                <Wrapper key={column.id}>
                     <Column
                         key={column.id}
                         id={column.id}

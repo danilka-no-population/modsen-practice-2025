@@ -213,7 +213,10 @@ const Column: FC<ColumnProps> = ({ id, title, color }) => {
                                     onChange={handlePriorityChange}
                                 >
                                     {PRIORITIES.map((priority) => (
-                                        <PriorityOption value={priority.value}>
+                                        <PriorityOption
+                                            value={priority.value}
+                                            key={priority.value}
+                                        >
                                             {priority.text}
                                         </PriorityOption>
                                     ))}
