@@ -1,3 +1,4 @@
+import { SIZES } from '../../constants/sizes';
 import { theme } from '../../styles/theme';
 import styled from 'styled-components';
 
@@ -30,8 +31,8 @@ export const ColumnWrapper = styled.div`
     background: ${theme.colors.white};
     border-radius: ${theme.borderRadius.large};
     padding: ${theme.spacing.md};
-    min-width: 340px;
-    max-width: 400px;
+    min-width: ${SIZES.COLUMN.MIN_WIDTH};
+    max-width: ${SIZES.COLUMN.MAX_WIDTH};
     display: flex;
     flex-direction: column;
     gap: ${theme.spacing.md};
@@ -53,14 +54,14 @@ export const ColumnHeader = styled.div<ColumnHeaderProps>`
     justify-content: space-between;
     background: ${({ color = theme.colors.black }) => color};
     color: ${theme.colors.white};
-    padding: 12px;
+    padding: ${SIZES.SPACING.SMALL};
     border-radius: ${theme.borderRadius.xlarge};
     font-weight: bold;
     font-size: ${theme.fontSizes.large};
     line-height: 22px;
-    height: 48px;
+    height: ${SIZES.COLUMN.HEADER_HEIGHT};
     box-shadow: ${theme.shadows.medium};
-    min-height: 48px;
+    min-height: ${SIZES.COLUMN.HEADER_HEIGHT};
     height: auto;
     div {
         display: flex;
@@ -73,8 +74,8 @@ export const ColumnHeader = styled.div<ColumnHeaderProps>`
 export const TaskCount = styled.span<ColumnHeaderProps>`
     color: ${({ color = theme.colors.black }) => color}60;
     border-radius: 50%;
-    width: 28px;
-    height: 28px;
+    width: ${SIZES.COLUMN.TASK_COUNT_SIZE};
+    height: ${SIZES.COLUMN.TASK_COUNT_SIZE};
     display: flex;
     background: ${theme.colors.white};
     align-items: center;
@@ -121,18 +122,18 @@ export const AddTaskButton = styled.button`
 
 export const AddTask = styled.button<ColumnHeaderProps>`
     background: ${theme.colors.white};
-    padding: 12px;
+    padding: ${SIZES.SPACING.SMALL};
     border: 1px solid #e2e8f0;
     border-radius: ${theme.borderRadius.xlarge};
     box-shadow: ${theme.shadows.medium};
     height: 48px;
-    gap: 12px;
+    gap: ${SIZES.SPACING.SMALL};
     display: flex;
     align-items: center;
     cursor: pointer;
     div {
-        width: 79px;
-        height: 24px;
+        width: ${SIZES.TASK.BUTTON_WIDTH};
+        height: ${SIZES.TASK.BUTTON_HEIGHT};
         padding: 4px 8px 4px 8px;
         background: ${({ color = theme.colors.black }) => color}15;
         border-radius: ${theme.borderRadius.large};
@@ -146,7 +147,7 @@ export const TasksWrapper = styled.div`
     flex-grow: 1;
     display: flex;
     flex-direction: column;
-    gap: 12px;
+    gap: ${SIZES.SPACING.SMALL};
     min-height: 100px;
 `;
 
@@ -172,8 +173,8 @@ export const TaskPriority = styled.div<{ color: string }>`
         outline: none;
     }
 
-    width: 79px;
-    height: 24px;
+    width: ${SIZES.TASK.BUTTON_WIDTH};
+    height: ${SIZES.TASK.BUTTON_HEIGHT};
     padding: 4px 8px 4px 8px;
     background: ${({ color = theme.colors.black }) => color}15;
     border-radius: ${theme.borderRadius.large};

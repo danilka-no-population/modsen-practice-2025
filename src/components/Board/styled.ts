@@ -1,3 +1,4 @@
+import { SIZES } from '../../constants/sizes';
 import { theme } from '../../styles/theme';
 import styled from 'styled-components';
 
@@ -9,10 +10,9 @@ export const AddColumnWrapper = styled.div`
     background: ${theme.colors.white};
     border-radius: ${theme.borderRadius.large};
     padding: ${theme.spacing.md};
-
-    height: 180px;
-    min-width: 340px;
-    max-width: 400px;
+    height: ${SIZES.COLUMN.HEIGHT};
+    min-width: ${SIZES.COLUMN.MIN_WIDTH};
+    max-width: ${SIZES.COLUMN.MAX_WIDTH};
     display: flex;
     flex-direction: column;
     gap: ${theme.spacing.md};
@@ -86,8 +86,8 @@ export const NoColumnsText = styled.div`
 export const Wrapper = styled.div`
     border-radius: 16px;
     flex: 1;
-    min-width: 340px;
-    max-width: 400px;
+    min-width: ${SIZES.COLUMN.MIN_WIDTH};
+    max-width: ${SIZES.COLUMN.MAX_WIDTH};
     display: flex;
     flex-direction: column;
     gap: ${theme.spacing.md};
