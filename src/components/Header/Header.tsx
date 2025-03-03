@@ -22,6 +22,9 @@ const Header: FC<HeaderProps> = ({ setIsAddingColumn }) => {
         setIsAddingColumn(true);
         setIsMenuOpen(false);
     };
+    const handleMenuOpen = () => {
+        setIsMenuOpen(!isMenuOpen);
+    };
     const headerRef = useRef<HTMLDivElement>(null);
     useEffect(() => {
         const handleClickOutside = (event: MouseEvent) => {
@@ -42,7 +45,7 @@ const Header: FC<HeaderProps> = ({ setIsAddingColumn }) => {
 
     return (
         <HeaderContainer ref={headerRef}>
-            <BurgerButton onClick={() => setIsMenuOpen(!isMenuOpen)}>
+            <BurgerButton onClick={handleMenuOpen}>
                 <Icon src={burgerIcon} alt="Burger-button" />
             </BurgerButton>
             <Title>Kanban Dashboard</Title>

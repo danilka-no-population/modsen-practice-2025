@@ -16,7 +16,7 @@ import {
     NoColumnsText,
     Wrapper,
 } from './styled';
-import { useEffect, useRef, useState } from 'react';
+import React, { useEffect, useRef, useState } from 'react';
 import { HuePicker } from 'react-color';
 import { v4 as uuidv4 } from 'uuid';
 
@@ -52,6 +52,16 @@ const Board = ({ isAddingColumn, setIsAddingColumn }: BoardProps) => {
         setIsAddingColumn(false);
         setNewColumnTitle('');
         setNewColumnColor('#8A8A8A');
+    };
+
+    const handleColumnTitleChange = (
+        e: React.ChangeEvent<HTMLInputElement>
+    ) => {
+        setNewColumnTitle(e.target.value);
+    };
+
+    const handleColorChange = (color: { hex: string }) => {
+        setNewColumnColor(color.hex);
     };
 
     const addColumnFormRef = useRef<HTMLDivElement>(null);
@@ -104,15 +114,13 @@ const Board = ({ isAddingColumn, setIsAddingColumn }: BoardProps) => {
                             type="text"
                             placeholder="Column title..."
                             value={newColumnTitle}
-                            onChange={(e) => setNewColumnTitle(e.target.value)}
+                            onChange={handleColumnTitleChange}
                         />
                     </AddColumnHeader>
                     <ColorWrapper>
                         <HuePicker
                             color={newColumnColor}
-                            onChangeComplete={(color) =>
-                                setNewColumnColor(color.hex)
-                            }
+                            onChangeComplete={handleColorChange}
                             width="100%"
                         />
                     </ColorWrapper>

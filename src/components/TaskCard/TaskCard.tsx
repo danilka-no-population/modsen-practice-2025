@@ -20,7 +20,7 @@ import {
 } from './styled';
 import { useSortable } from '@dnd-kit/sortable';
 import { CSS } from '@dnd-kit/utilities';
-import { FC, useEffect, useRef, useState } from 'react';
+import React, { FC, useEffect, useRef, useState } from 'react';
 
 interface TaskProps {
     id: string;
@@ -131,6 +131,26 @@ const TaskCard: FC<TaskProps> = ({
         setPriorityInput(priority?.label || '');
     };
 
+    const handlePriorityInputChange = (
+        e: React.ChangeEvent<HTMLSelectElement>
+    ) => {
+        setPriorityInput(e.target.value);
+    };
+
+    const handleTitleInputChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+        setTitleInput(e.target.value);
+    };
+
+    const handleDescriptionInputChange = (
+        e: React.ChangeEvent<HTMLInputElement>
+    ) => {
+        setDescriptionInput(e.target.value);
+    };
+
+    const handleEditing = () => {
+        setIsEditing(true);
+    };
+
     return (
         <TaskContainer>
             <>
@@ -150,9 +170,7 @@ const TaskCard: FC<TaskProps> = ({
                         >
                             <select
                                 value={priorityInput}
-                                onChange={(e) =>
-                                    setPriorityInput(e.target.value)
-                                }
+                                onChange={handlePriorityInputChange}
                             >
                                 <option value="">None</option>
                                 <option value="Low">Low</option>
@@ -163,7 +181,7 @@ const TaskCard: FC<TaskProps> = ({
                         <TaskTitleInput
                             type="text"
                             value={titleInput}
-                            onChange={(e) => setTitleInput(e.target.value)}
+                            onChange={handleTitleInputChange}
                             placeholder="Task title..."
                             ref={titleInputRef}
                             onClick={handleTitleClick}
@@ -171,9 +189,7 @@ const TaskCard: FC<TaskProps> = ({
                         <TaskDescriptionInput
                             type="text"
                             value={descriptionInput}
-                            onChange={(e) =>
-                                setDescriptionInput(e.target.value)
-                            }
+                            onChange={handleDescriptionInputChange}
                             placeholder="Task description..."
                             ref={descriptionInputRef}
                             onClick={handleDescriptionClick}
@@ -207,9 +223,7 @@ const TaskCard: FC<TaskProps> = ({
             </>
             {!isEditing && (
                 <TaskActions>
-                    <EditButton onClick={() => setIsEditing(true)}>
-                        ✏️
-                    </EditButton>
+                    <EditButton onClick={handleEditing}>✏️</EditButton>
                     <DeleteButton onClick={handleDelete}>🗑️</DeleteButton>
                 </TaskActions>
             )}

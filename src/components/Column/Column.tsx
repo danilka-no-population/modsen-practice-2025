@@ -31,7 +31,7 @@ import {
     verticalListSortingStrategy,
 } from '@dnd-kit/sortable';
 import { CSS } from '@dnd-kit/utilities';
-import { FC, useEffect, useRef, useState } from 'react';
+import React, { FC, useEffect, useRef, useState } from 'react';
 import { v4 as uuidv4 } from 'uuid';
 
 interface ColumnProps {
@@ -140,6 +140,28 @@ const Column: FC<ColumnProps> = ({ id, title, color }) => {
         setPriority(null);
     };
 
+    const handleAddTaskClick = () => {
+        setIsAddingTask(true);
+    };
+
+    const handlePriorityChange = (e: React.ChangeEvent<HTMLSelectElement>) => {
+        setPriority(
+            e.target.value
+                ? (e.target.value as keyof typeof priorityColors)
+                : null
+        );
+    };
+
+    const handleTitleInputChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+        setTitleInput(e.target.value);
+    };
+
+    const handleDescriptionInputChange = (
+        e: React.ChangeEvent<HTMLInputElement>
+    ) => {
+        setDescriptionInput(e.target.value);
+    };
+
     return (
         <ColumnWrapper ref={setColumnNodeRef} style={style}>
             <ColumnHeader color={color}>
@@ -154,7 +176,7 @@ const Column: FC<ColumnProps> = ({ id, title, color }) => {
                     >
                         Delete
                     </DeleteColumnButton>
-                    <AddTaskButton onClick={() => setIsAddingTask(true)}>
+                    <AddTaskButton onClick={handleAddTaskClick}>
                         <Icon src={whitePlus} alt="Add task" />
                     </AddTaskButton>
                 </Container>
@@ -194,14 +216,7 @@ const Column: FC<ColumnProps> = ({ id, title, color }) => {
                             >
                                 <select
                                     value={priority ?? ''}
-                                    onChange={(e) =>
-                                        setPriority(
-                                            e.target.value
-                                                ? (e.target
-                                                      .value as keyof typeof priorityColors)
-                                                : null
-                                        )
-                                    }
+                                    onChange={handlePriorityChange}
                                 >
                                     <option value="">None</option>
                                     <option value="Low">Low</option>
@@ -214,15 +229,13 @@ const Column: FC<ColumnProps> = ({ id, title, color }) => {
                                 type="text"
                                 placeholder="Task title..."
                                 value={titleInput}
-                                onChange={(e) => setTitleInput(e.target.value)}
+                                onChange={handleTitleInputChange}
                             />
                             <TaskDescriptionInput
                                 type="text"
                                 placeholder="Task description..."
                                 value={descriptionInput}
-                                onChange={(e) =>
-                                    setDescriptionInput(e.target.value)
-                                }
+                                onChange={handleDescriptionInputChange}
                             />
 
                             <ButtonsContainer>
@@ -237,7 +250,7 @@ const Column: FC<ColumnProps> = ({ id, title, color }) => {
                     )}
                 </TasksWrapper>
             </SortableContext>
-            <AddTask color={color} onClick={() => setIsAddingTask(true)}>
+            <AddTask color={color} onClick={handleAddTaskClick}>
                 <div>Add task...</div>
             </AddTask>
         </ColumnWrapper>

@@ -136,6 +136,11 @@ function App() {
         }
     }, [activeTask, activeColumn]);
 
+    const handleDragCancel = () => {
+        setActiveTask(null);
+        setActiveColumn(null);
+    };
+
     return (
         <>
             <GlobalStyles />
@@ -145,10 +150,7 @@ function App() {
                 collisionDetection={rectIntersection}
                 onDragStart={handleDragStart}
                 onDragEnd={handleDragEnd}
-                onDragCancel={() => {
-                    setActiveTask(null);
-                    setActiveColumn(null);
-                }}
+                onDragCancel={handleDragCancel}
             >
                 <Board
                     isAddingColumn={isAddingColumn}
