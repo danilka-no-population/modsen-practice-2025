@@ -10,6 +10,7 @@ import { v4 as uuidv4 } from 'uuid';
 
 import whitePlus from '../../assets/icons/whitePlus.png';
 import {
+    PRIORITIES,
     PRIORITY_COLORS,
     PriorityLevel,
 } from '../../constants/initialPriorities';
@@ -18,6 +19,7 @@ import { removeColumn } from '../../store/slices/columnSlice';
 import { addTask, removeTasksByColumnId } from '../../store/slices/taskSlice';
 import { Icon } from '../Header/styled';
 import TaskCard from '../TaskCard';
+import { PriorityOption, PrioritySelect } from '../TaskCard/styled';
 import {
     AddTask,
     AddTaskButton,
@@ -206,15 +208,16 @@ const Column: FC<ColumnProps> = ({ id, title, color }) => {
                                         : '#989ca6'
                                 }
                             >
-                                <select
+                                <PrioritySelect
                                     value={priority ?? ''}
                                     onChange={handlePriorityChange}
                                 >
-                                    <option value="">None</option>
-                                    <option value="Low">Low</option>
-                                    <option value="Medium">Medium</option>
-                                    <option value="High">High</option>
-                                </select>
+                                    {PRIORITIES.map((priority) => (
+                                        <PriorityOption value={priority.value}>
+                                            {priority.text}
+                                        </PriorityOption>
+                                    ))}
+                                </PrioritySelect>
                             </TaskPriority>
 
                             <TaskTitleInput
@@ -243,7 +246,7 @@ const Column: FC<ColumnProps> = ({ id, title, color }) => {
                 </TasksWrapper>
             </SortableContext>
             <AddTask color={color} onClick={handleAddTaskClick}>
-                <div>Add task...</div>
+                <Container>Add task...</Container>
             </AddTask>
         </ColumnWrapper>
     );

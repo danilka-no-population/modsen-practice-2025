@@ -77,3 +77,6 @@ export const TaskContainer = styled.div`
     position: relative;
     width: 100%;
 `;
+
+export const PrioritySelect = styled.select``;
+export const PriorityOption = styled.option``;

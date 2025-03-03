@@ -3,6 +3,7 @@ import { CSS } from '@dnd-kit/utilities';
 import React, { FC, useEffect, useRef, useState } from 'react';
 
 import {
+    PRIORITIES,
     PRIORITY_COLORS,
     PriorityLevel,
 } from '../../constants/initialPriorities';
@@ -19,6 +20,8 @@ import {
 import {
     DeleteButton,
     EditButton,
+    PriorityOption,
+    PrioritySelect,
     Tag,
     TaskActions,
     TaskContainer,
@@ -163,15 +166,16 @@ const TaskCard: FC<TaskProps> = ({
                                     : '#989ca6'
                             }
                         >
-                            <select
+                            <PrioritySelect
                                 value={priorityInput}
                                 onChange={handlePriorityInputChange}
                             >
-                                <option value="">None</option>
-                                <option value="Low">Low</option>
-                                <option value="Medium">Medium</option>
-                                <option value="High">High</option>
-                            </select>
+                                {PRIORITIES.map((priority) => (
+                                    <PriorityOption value={priority.value}>
+                                        {priority.text}
+                                    </PriorityOption>
+                                ))}
+                            </PrioritySelect>
                         </TaskPriority>
                         <TaskTitleInput
                             type="text"

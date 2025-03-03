@@ -5,3 +5,15 @@ export const PRIORITY_COLORS = {
 } as const;
 
 export type PriorityLevel = keyof typeof PRIORITY_COLORS;
+
+export type PriorityOption = {
+    value: PriorityLevel | '';
+    text: string;
+};
+
+export const PRIORITIES: PriorityOption[] = [
+    { value: '', text: 'None' },
+    { value: 'Low', text: 'Low' },
+    { value: 'Medium', text: 'Medium' },
+    { value: 'High', text: 'High' },
+];
