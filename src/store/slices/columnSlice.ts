@@ -1,16 +1,7 @@
 import { createSlice, PayloadAction } from '@reduxjs/toolkit';
 
 import { INITIAL_COLUMNS } from '../../constants/initialColumns';
-
-export interface Column {
-    id: string;
-    title: string;
-    color: string;
-}
-
-interface ColumnsState {
-    columns: Column[];
-}
+import { Column, ColumnsState } from '../../types/columnTypes';
 
 const initialState: ColumnsState = {
     columns: INITIAL_COLUMNS,

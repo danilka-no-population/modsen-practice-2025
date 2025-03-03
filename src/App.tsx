@@ -17,12 +17,11 @@ import Column from './components/Column/Column';
 import Header from './components/Header/Header';
 import TaskCard from './components/TaskCard/TaskCard';
 import { useAppDispatch, useAppSelector } from './hooks/typedReduxHooks';
-import {
-    Column as ColumnType,
-    reorderColumns,
-} from './store/slices/columnSlice';
-import { moveTask, reorderTasks, Task } from './store/slices/taskSlice';
+import { reorderColumns } from './store/slices/columnSlice';
+import { moveTask, reorderTasks } from './store/slices/taskSlice';
 import GlobalStyles from './styles/globalStyles';
+import { Column as ColumnType } from './types/columnTypes';
+import { Task } from './types/taskTypes';
 
 function App() {
     const dispatch = useAppDispatch();
