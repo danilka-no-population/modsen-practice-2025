@@ -1,5 +1,6 @@
-import { INITIAL_COLUMNS } from '../../constants/initialColumns';
 import { createSlice, PayloadAction } from '@reduxjs/toolkit';
+
+import { INITIAL_COLUMNS } from '../../constants/initialColumns';
 
 export interface Column {
     id: string;

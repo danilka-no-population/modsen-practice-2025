@@ -1,5 +1,6 @@
-import { theme } from '../../styles/theme';
 import styled from 'styled-components';
+
+import { theme } from '../../styles/theme';
 
 interface TagColor {
     color: string;

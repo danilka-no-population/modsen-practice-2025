@@ -31,17 +31,7 @@ export default [
         rules: {
             'react/react-in-jsx-scope': 'off',
             '@typescript-eslint/no-unused-vars': ['error'],
-            'simple-import-sort/imports': [
-                'error',
-                {
-                    groups: [
-                        ['builtin', 'external'],
-                        ['internal'],
-                        ['sibling', 'parent'],
-                        ['index'],
-                    ],
-                },
-            ],
+            'simple-import-sort/imports': 'error',
             'simple-import-sort/exports': 'error',
         },
     },

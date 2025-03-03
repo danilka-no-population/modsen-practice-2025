@@ -1,7 +1,8 @@
+import { combineReducers, configureStore } from '@reduxjs/toolkit';
+
 import { loadState, saveState } from '../utils/localStorageMethods';
 import columnsReducer from './slices/columnSlice';
 import tasksReducer from './slices/taskSlice';
-import { combineReducers, configureStore } from '@reduxjs/toolkit';
 
 const preloadedState = loadState();
 

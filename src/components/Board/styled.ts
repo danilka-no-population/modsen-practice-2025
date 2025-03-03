@@ -1,6 +1,7 @@
+import styled from 'styled-components';
+
 import { SIZES } from '../../constants/sizes';
 import { theme } from '../../styles/theme';
-import styled from 'styled-components';
 
 interface ColumnHeaderProps {
     color: string;

@@ -1,14 +1,3 @@
-import Board from './components/Board';
-import Column from './components/Column/Column';
-import Header from './components/Header/Header';
-import TaskCard from './components/TaskCard/TaskCard';
-import { useAppDispatch, useAppSelector } from './hooks/typedReduxHooks';
-import {
-    Column as ColumnType,
-    reorderColumns,
-} from './store/slices/columnSlice';
-import { moveTask, reorderTasks, Task } from './store/slices/taskSlice';
-import GlobalStyles from './styles/globalStyles';
 import {
     DndContext,
     DragEndEvent,
@@ -22,6 +11,18 @@ import {
 } from '@dnd-kit/core';
 import { arrayMove } from '@dnd-kit/sortable';
 import { useEffect, useState } from 'react';
+
+import Board from './components/Board';
+import Column from './components/Column/Column';
+import Header from './components/Header/Header';
+import TaskCard from './components/TaskCard/TaskCard';
+import { useAppDispatch, useAppSelector } from './hooks/typedReduxHooks';
+import {
+    Column as ColumnType,
+    reorderColumns,
+} from './store/slices/columnSlice';
+import { moveTask, reorderTasks, Task } from './store/slices/taskSlice';
+import GlobalStyles from './styles/globalStyles';
 
 function App() {
     const dispatch = useAppDispatch();

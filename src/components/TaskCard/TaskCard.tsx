@@ -1,3 +1,7 @@
+import { useSortable } from '@dnd-kit/sortable';
+import { CSS } from '@dnd-kit/utilities';
+import React, { FC, useEffect, useRef, useState } from 'react';
+
 import {
     PRIORITY_COLORS,
     PriorityLevel,
@@ -22,9 +26,6 @@ import {
     TaskHeader,
     TaskWrapper,
 } from './styled';
-import { useSortable } from '@dnd-kit/sortable';
-import { CSS } from '@dnd-kit/utilities';
-import React, { FC, useEffect, useRef, useState } from 'react';
 
 interface TaskProps {
     id: string;

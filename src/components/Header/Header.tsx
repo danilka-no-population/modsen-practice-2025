@@ -1,3 +1,5 @@
+import { FC, useEffect, useRef, useState } from 'react';
+
 import burgerIcon from '../../assets/icons/burger.png';
 import plusIcon from '../../assets/icons/grayPlus.png';
 import {
@@ -9,7 +11,6 @@ import {
     MenuWrapper,
     Title,
 } from './styled';
-import { FC, useEffect, useRef, useState } from 'react';
 
 interface HeaderProps {
     // eslint-disable-next-line no-unused-vars

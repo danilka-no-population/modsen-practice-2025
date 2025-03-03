@@ -1,3 +1,7 @@
+import React, { useEffect, useRef, useState } from 'react';
+import { HuePicker } from 'react-color';
+import { v4 as uuidv4 } from 'uuid';
+
 import { useAppDispatch, useAppSelector } from '../../hooks/typedReduxHooks';
 import { addColumn } from '../../store/slices/columnSlice';
 import Column from '../Column/Column';
@@ -16,9 +20,6 @@ import {
     NoColumnsText,
     Wrapper,
 } from './styled';
-import React, { useEffect, useRef, useState } from 'react';
-import { HuePicker } from 'react-color';
-import { v4 as uuidv4 } from 'uuid';
 
 interface BoardProps {
     isAddingColumn: boolean;

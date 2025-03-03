@@ -1,3 +1,13 @@
+import { useDroppable } from '@dnd-kit/core';
+import {
+    SortableContext,
+    useSortable,
+    verticalListSortingStrategy,
+} from '@dnd-kit/sortable';
+import { CSS } from '@dnd-kit/utilities';
+import React, { FC, useEffect, useRef, useState } from 'react';
+import { v4 as uuidv4 } from 'uuid';
+
 import whitePlus from '../../assets/icons/whitePlus.png';
 import {
     PRIORITY_COLORS,
@@ -28,15 +38,6 @@ import {
     TasksWrapper,
     TaskTitleInput,
 } from './styled';
-import { useDroppable } from '@dnd-kit/core';
-import {
-    SortableContext,
-    useSortable,
-    verticalListSortingStrategy,
-} from '@dnd-kit/sortable';
-import { CSS } from '@dnd-kit/utilities';
-import React, { FC, useEffect, useRef, useState } from 'react';
-import { v4 as uuidv4 } from 'uuid';
 
 interface ColumnProps {
     id: string;
