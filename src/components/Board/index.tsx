@@ -4,7 +4,7 @@ import { v4 as uuidv4 } from 'uuid';
 
 import { useAppDispatch, useAppSelector } from '../../hooks/typedReduxHooks';
 import { addColumn } from '../../store/slices/columnSlice';
-import Column from '../Column/Column';
+import Column from '../Column';
 import {
     BoardWrapper,
     CancelButton,

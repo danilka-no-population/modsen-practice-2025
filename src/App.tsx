@@ -13,9 +13,9 @@ import { arrayMove } from '@dnd-kit/sortable';
 import { useEffect, useState } from 'react';
 
 import Board from './components/Board';
-import Column from './components/Column/Column';
-import Header from './components/Header/Header';
-import TaskCard from './components/TaskCard/TaskCard';
+import Column from './components/Column';
+import Header from './components/Header';
+import TaskCard from './components/TaskCard';
 import { useAppDispatch, useAppSelector } from './hooks/typedReduxHooks';
 import { reorderColumns } from './store/slices/columnSlice';
 import { moveTask, reorderTasks } from './store/slices/taskSlice';

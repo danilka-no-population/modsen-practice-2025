@@ -17,7 +17,7 @@ import { useAppDispatch, useAppSelector } from '../../hooks/typedReduxHooks';
 import { removeColumn } from '../../store/slices/columnSlice';
 import { addTask, removeTasksByColumnId } from '../../store/slices/taskSlice';
 import { Icon } from '../Header/styled';
-import TaskCard from '../TaskCard/TaskCard';
+import TaskCard from '../TaskCard';
 import {
     AddTask,
     AddTaskButton,
