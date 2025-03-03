@@ -1,3 +1,4 @@
+import { theme } from '../../styles/theme';
 import styled from 'styled-components';
 
 interface ColumnHeaderProps {
@@ -5,22 +6,22 @@ interface ColumnHeaderProps {
 }
 
 export const AddColumnWrapper = styled.div`
-    background: #ffffff;
-    border-radius: 16px;
-    padding: 16px;
+    background: ${theme.colors.white};
+    border-radius: ${theme.borderRadius.large};
+    padding: ${theme.spacing.md};
 
     height: 180px;
     min-width: 340px;
     max-width: 400px;
     display: flex;
     flex-direction: column;
-    gap: 16px;
-    box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.05);
+    gap: ${theme.spacing.md};
+    box-shadow: ${theme.shadows.medium};
     transition: 0.3s ease-in-out;
-    background: #f8fafc;
+    background: ${theme.colors.background};
 
     @media (max-width: 768px) {
-        background: transparent;
+        background: ${theme.colors.backgroundTransparent};
         box-shadow: none;
         width: 100%;
         max-width: none;
@@ -30,28 +31,28 @@ export const AddColumnWrapper = styled.div`
 export const AddColumnHeader = styled.div<ColumnHeaderProps>`
     display: flex;
     align-items: center;
-    gap: 10px;
-    background: ${({ color = 'black' }) => color};
-    color: white;
-    padding: 12px;
-    border-radius: 25px;
+    gap: ${theme.spacing.sm};
+    background: ${({ color = theme.colors.black }) => color};
+    color: ${theme.colors.white};
+    padding: ${theme.spacing.sm};
+    border-radius: ${theme.borderRadius.xlarge};
     font-weight: bold;
-    font-size: 16px;
+    font-size: ${theme.fontSizes.large};
     line-height: 22px;
     height: 48px;
 `;
 
 export const AddColumnTitle = styled.input`
     background-color: transparent;
-    font-size: 16px;
+    font-size: ${theme.fontSizes.large};
     font-weight: bold;
     border: none;
     outline: none;
     padding: 3px 5px 0 0;
     width: 90%;
-    color: #ffffff;
+    color: ${theme.colors.white};
     &::placeholder {
-        color: rgb(255, 255, 255);
+        color: ${theme.colors.white};
         opacity: 0.8;
     }
 `;
@@ -59,12 +60,12 @@ export const AddColumnTitle = styled.input`
 export const AddButtonsContainer = styled.div`
     display: flex;
     justify-content: flex-start;
-    gap: 5px;
-    margin-top: 5px;
+    gap: ${theme.spacing.xs};
+    margin-top: ${theme.spacing.xs};
 `;
 
 export const ColorWrapper = styled.div`
-    padding: 5px;
+    padding: ${theme.spacing.xs};
     z-index: 1000;
 `;
 
@@ -76,9 +77,9 @@ export const NoColumnsText = styled.div`
     text-align: center;
     justify-content: center;
     align-items: center;
-    font-size: 26px;
+    font-size: ${theme.fontSizes.xxlarge};
     font-weight: bold;
-    padding: 0 40px;
+    padding: 0 ${theme.spacing.xl};
     opacity: 0.6;
 `;
 
@@ -89,14 +90,12 @@ export const Wrapper = styled.div`
     max-width: 400px;
     display: flex;
     flex-direction: column;
-    gap: 16px;
-
+    gap: ${theme.spacing.md};
     transition: 0.3s ease-in-out;
-    background: #f8fafc;
-    background: transparent;
+    background: ${theme.colors.backgroundTransparent};
 
     @media (max-width: 768px) {
-        background: transparent;
+        background: ${theme.colors.backgroundTransparent};
         box-shadow: none;
         width: 100%;
         max-width: none;

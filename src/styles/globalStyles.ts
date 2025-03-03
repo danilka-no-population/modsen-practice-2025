@@ -1,3 +1,4 @@
+import { theme } from './theme';
 import { createGlobalStyle } from 'styled-components';
 
 const GlobalStyles = createGlobalStyle`
@@ -12,7 +13,7 @@ const GlobalStyles = createGlobalStyle`
         font-optical-sizing: auto;
         font-style: normal;
         color: #1E293B;
-        background: #ffffff;
+        background: ${theme.colors.white};
         transition: background 0.3s ease-in-out;
         min-width: 100vw;
         min-height: 100vh;

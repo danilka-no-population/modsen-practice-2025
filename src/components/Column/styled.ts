@@ -1,3 +1,4 @@
+import { theme } from '../../styles/theme';
 import styled from 'styled-components';
 
 interface ColumnHeaderProps {
@@ -6,10 +7,9 @@ interface ColumnHeaderProps {
 
 export const BoardWrapper = styled.div`
     display: flex;
-    gap: 20px;
-    padding: 20px;
+    gap: ${theme.spacing.lg};
+    padding: ${theme.spacing.lg};
     justify-content: space-evenly;
-
     overflow-x: auto;
     overflow-y: auto;
     align-items: flex-start;
@@ -19,8 +19,7 @@ export const BoardWrapper = styled.div`
     @media (max-width: 768px) {
         flex-direction: column;
         align-items: center;
-        background: #f1f5f9;
-
+        background: ${theme.colors.background};
         overflow-x: hidden;
         overflow-y: auto;
         height: auto;
@@ -28,21 +27,20 @@ export const BoardWrapper = styled.div`
 `;
 
 export const ColumnWrapper = styled.div`
-    background: #ffffff;
-    border-radius: 16px;
-    padding: 16px;
-
+    background: ${theme.colors.white};
+    border-radius: ${theme.borderRadius.large};
+    padding: ${theme.spacing.md};
     min-width: 340px;
     max-width: 400px;
     display: flex;
     flex-direction: column;
-    gap: 16px;
-    box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.05);
+    gap: ${theme.spacing.md};
+    box-shadow: ${theme.shadows.medium};
     transition: 0.3s ease-in-out;
-    background: #f8fafc;
+    background: ${theme.colors.background};
 
     @media (max-width: 768px) {
-        background: transparent;
+        background: ${theme.colors.backgroundTransparent};
         box-shadow: none;
         width: 100%;
         max-width: none;
@@ -53,41 +51,41 @@ export const ColumnHeader = styled.div<ColumnHeaderProps>`
     display: flex;
     align-items: center;
     justify-content: space-between;
-    background: ${({ color = 'black' }) => color};
-    color: white;
+    background: ${({ color = theme.colors.black }) => color};
+    color: ${theme.colors.white};
     padding: 12px;
-    border-radius: 25px;
+    border-radius: ${theme.borderRadius.xlarge};
     font-weight: bold;
-    font-size: 16px;
+    font-size: ${theme.fontSizes.large};
     line-height: 22px;
     height: 48px;
-    box-shadow: 4px 4px 10px rgba(0, 0, 0, 0.2);
+    box-shadow: ${theme.shadows.medium};
     min-height: 48px;
     height: auto;
     div {
         display: flex;
         align-items: center;
-        gap: 10px;
+        gap: ${theme.spacing.sm};
         max-width: 70%;
     }
 `;
 
 export const TaskCount = styled.span<ColumnHeaderProps>`
-    color: ${({ color = 'black' }) => color}60;
+    color: ${({ color = theme.colors.black }) => color}60;
     border-radius: 50%;
     width: 28px;
     height: 28px;
     display: flex;
-    background: white;
+    background: ${theme.colors.white};
     align-items: center;
     justify-content: center;
-    font-size: 14px;
+    font-size: ${theme.fontSizes.medium};
     font-weight: bold;
     flex-shrink: 0;
 `;
 
 export const ColumnTitle = styled.h2`
-    font-size: 16px;
+    font-size: ${theme.fontSizes.large};
     margin: 0;
     word-wrap: break-word;
     white-space: normal;
@@ -96,7 +94,7 @@ export const ColumnTitle = styled.h2`
 `;
 
 export const AddTaskButton = styled.button`
-    background: transparent;
+    background: ${theme.colors.backgroundTransparent};
     color: #475569;
     border: none;
     cursor: pointer;
@@ -122,11 +120,11 @@ export const AddTaskButton = styled.button`
 `;
 
 export const AddTask = styled.button<ColumnHeaderProps>`
-    background: #ffffff;
+    background: ${theme.colors.white};
     padding: 12px;
     border: 1px solid #e2e8f0;
-    border-radius: 24px;
-    box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.1);
+    border-radius: ${theme.borderRadius.xlarge};
+    box-shadow: ${theme.shadows.medium};
     height: 48px;
     gap: 12px;
     display: flex;
@@ -136,11 +134,11 @@ export const AddTask = styled.button<ColumnHeaderProps>`
         width: 79px;
         height: 24px;
         padding: 4px 8px 4px 8px;
-        background: ${({ color = 'black' }) => color}15;
-        border-radius: 15px;
-        color: ${({ color = 'black' }) => color};
+        background: ${({ color = theme.colors.black }) => color}15;
+        border-radius: ${theme.borderRadius.large};
+        color: ${({ color = theme.colors.black }) => color};
         font-weight: 600;
-        font-size: 12px;
+        font-size: ${theme.fontSizes.small};
     }
 `;
 
@@ -153,22 +151,22 @@ export const TasksWrapper = styled.div`
 `;
 
 export const AddTaskForm = styled.div`
-    background: white;
+    background: ${theme.colors.white};
     padding: 10px;
-    border-radius: 8px;
+    border-radius: ${theme.borderRadius.medium};
     display: flex;
     flex-direction: column;
     align-items: start;
-    gap: 8px;
-    box-shadow: 0px 2px 5px rgba(0, 0, 0, 0.1);
+    gap: ${theme.spacing.sm};
+    box-shadow: ${theme.shadows.small};
 `;
 
 export const TaskPriority = styled.div<{ color: string }>`
     select {
-        background: transparent;
+        background: ${theme.colors.backgroundTransparent};
         border: none;
-        color: ${({ color = 'black' }) => color};
-        font-size: 12px;
+        color: ${({ color = theme.colors.black }) => color};
+        font-size: ${theme.fontSizes.small};
         font-weight: bold;
         cursor: pointer;
         outline: none;
@@ -177,72 +175,72 @@ export const TaskPriority = styled.div<{ color: string }>`
     width: 79px;
     height: 24px;
     padding: 4px 8px 4px 8px;
-    background: ${({ color = 'black' }) => color}15;
-    border-radius: 15px;
-    color: ${({ color = 'black' }) => color};
+    background: ${({ color = theme.colors.black }) => color}15;
+    border-radius: ${theme.borderRadius.large};
+    color: ${({ color = theme.colors.black }) => color};
     font-weight: 700;
-    font-size: 12px;
+    font-size: ${theme.fontSizes.small};
 `;
 
 export const TaskTitleInput = styled.input`
-    font-size: 16px;
+    font-size: ${theme.fontSizes.large};
     font-weight: bold;
     border: none;
     outline: none;
-    padding: 5px;
+    padding: ${theme.spacing.xs};
     width: 100%;
 `;
 
 export const TaskDescriptionInput = styled.input`
-    font-size: 14px;
+    font-size: ${theme.fontSizes.medium};
     font-wight: 600;
     border: none;
     outline: none;
-    padding: 5px;
+    padding: ${theme.spacing.xs};
     width: 100%;
-    color: #64748b;
+    color: ${theme.colors.gray};
 `;
 
 export const ButtonsContainer = styled.div`
     display: flex;
     justify-content: flex-end;
-    gap: 5px;
-    margin-top: 5px;
+    gap: ${theme.spacing.xs};
+    margin-top: ${theme.spacing.xs};
 `;
 
 export const SaveButton = styled.button`
-    background-color: transparent;
-    color: #4caf50;
+    background-color: ${theme.colors.backgroundTransparent};
+    color: ${theme.colors.success};
     font-weight: 600;
     padding: 5px 5px;
     border: none;
-    border-radius: 5px;
+    border-radius: ${theme.borderRadius.small};
     cursor: pointer;
-    font-size: 14px;
+    font-size: ${theme.fontSizes.medium};
 `;
 
 export const CancelButton = styled.button`
-    background-color: transparent;
-    color: #e74c3c;
+    background-color: ${theme.colors.backgroundTransparent};
+    color: ${theme.colors.danger};
     font-weight: 600;
     padding: 5px 10px;
     border: none;
-    border-radius: 5px;
+    border-radius: ${theme.borderRadius.small};
     cursor: pointer;
-    font-size: 14px;
+    font-size: ${theme.fontSizes.medium};
 `;
 
 export const Container = styled.div``;
 
 export const DeleteColumnButton = styled.button<ColumnHeaderProps>`
-    color: ${({ color = 'black' }) => color}90;
+    color: ${({ color = theme.colors.black }) => color}90;
     font-weight: bold;
-    font-size: 12px;
+    font-size: ${theme.fontSizes.small};
     padding: 5px 10px;
     border: none;
-    border-radius: 24px;
+    border-radius: ${theme.borderRadius.xlarge};
     cursor: pointer;
-    box-shadow: 4px 4px 10px rgba(0, 0, 0, 0.1);
+    box-shadow: ${theme.shadows.medium};
     flex-shrink: 0;
 `;
 
@@ -261,7 +259,7 @@ export const NoTasksText = styled.div`
     text-align: center;
     justify-content: center;
     align-items: center;
-    fontsize: '14px';
+    fontsize: ${theme.fontSizes.medium};
     font-weight: bold;
     padding: 0 40px;
     opacity: 0.5;
