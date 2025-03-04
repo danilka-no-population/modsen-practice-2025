@@ -5,27 +5,19 @@ import {
     verticalListSortingStrategy,
 } from '@dnd-kit/sortable';
 import { CSS } from '@dnd-kit/utilities';
-import React, { FC, useEffect, useRef, useState } from 'react';
-import { v4 as uuidv4 } from 'uuid';
+import { FC, useEffect, useRef } from 'react';
 
 import whitePlus from '../../assets/icons/whitePlus.png';
-import {
-    PRIORITIES,
-    PRIORITY_COLORS,
-    PriorityLevel,
-} from '../../constants/initialPriorities';
 import { useAppDispatch, useAppSelector } from '../../hooks/typedReduxHooks';
+import { useAddTask } from '../../hooks/useAddTask';
 import { removeColumn } from '../../store/slices/columnSlice';
-import { addTask, removeTasksByColumnId } from '../../store/slices/taskSlice';
+import { removeTasksByColumnId } from '../../store/slices/taskSlice';
+import AddTaskForm from '../AddTaskForm';
 import { Icon } from '../Header/styled';
 import TaskCard from '../TaskCard';
-import { PriorityOption, PrioritySelect } from '../TaskCard/styled';
 import {
     AddTask,
     AddTaskButton,
-    AddTaskForm,
-    ButtonsContainer,
-    CancelButton,
     ColumnHeader,
     ColumnTitle,
     ColumnWrapper,
@@ -33,12 +25,8 @@ import {
     DeleteColumnButton,
     DraggableContainer,
     NoTasksText,
-    SaveButton,
     TaskCount,
-    TaskDescriptionInput,
-    TaskPriority,
     TasksWrapper,
-    TaskTitleInput,
 } from './styled';
 
 interface ColumnProps {
@@ -53,10 +41,18 @@ const Column: FC<ColumnProps> = ({ id, title, color }) => {
         state.tasks.tasks.filter((task) => task.columnId === id)
     );
 
-    const [isAddingTask, setIsAddingTask] = useState<boolean>(false);
-    const [titleInput, setTitleInput] = useState<string>('');
-    const [descriptionInput, setDescriptionInput] = useState<string>('');
-    const [priority, setPriority] = useState<PriorityLevel | null>(null);
+    const {
+        isAddingTask,
+        titleInput,
+        descriptionInput,
+        priority,
+        handleAddTask,
+        handleCancelTask,
+        handleAddTaskClick,
+        handlePriorityChange,
+        handleTitleInputChange,
+        handleDescriptionInputChange,
+    } = useAddTask(id);
 
     const { setNodeRef } = useDroppable({ id });
 
@@ -91,10 +87,7 @@ const Column: FC<ColumnProps> = ({ id, title, color }) => {
                 addTaskFormRef.current &&
                 !addTaskFormRef.current.contains(event.target as Node)
             ) {
-                setIsAddingTask(false);
-                setTitleInput('');
-                setDescriptionInput('');
-                setPriority(null);
+                handleCancelTask();
             }
         };
         document.addEventListener('mousedown', handleClickOutside);
@@ -102,63 +95,13 @@ const Column: FC<ColumnProps> = ({ id, title, color }) => {
         return () => {
             document.removeEventListener('mousedown', handleClickOutside);
         };
-    }, [isAddingTask]);
-
-    const handleAddTask = () => {
-        if (titleInput.trim() === '') return;
-
-        dispatch(
-            addTask({
-                id: uuidv4(),
-                columnId: id,
-                title: titleInput,
-                description: descriptionInput,
-                priority: priority
-                    ? { label: priority, color: PRIORITY_COLORS[priority] }
-                    : undefined,
-            })
-        );
-
-        setIsAddingTask(false);
-        setTitleInput('');
-        setDescriptionInput('');
-        setPriority(null);
-    };
+    }, [isAddingTask, handleCancelTask]);
 
     const handleRemoveColumn = () => {
         if (confirm('Are you sure you want to delete the column?')) {
             dispatch(removeColumn(id));
             dispatch(removeTasksByColumnId(id));
         }
-    };
-
-    const handleCancelTask = () => {
-        setIsAddingTask(false);
-        setTitleInput('');
-        setDescriptionInput('');
-        setPriority(null);
-    };
-
-    const handleAddTaskClick = () => {
-        setIsAddingTask(true);
-    };
-
-    const handlePriorityChange = (e: React.ChangeEvent<HTMLSelectElement>) => {
-        setPriority(
-            e.target.value
-                ? (e.target.value as keyof typeof PRIORITY_COLORS)
-                : null
-        );
-    };
-
-    const handleTitleInputChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-        setTitleInput(e.target.value);
-    };
-
-    const handleDescriptionInputChange = (
-        e: React.ChangeEvent<HTMLInputElement>
-    ) => {
-        setDescriptionInput(e.target.value);
     };
 
     return (
@@ -200,51 +143,19 @@ const Column: FC<ColumnProps> = ({ id, title, color }) => {
                     )}
 
                     {isAddingTask && (
-                        <AddTaskForm ref={addTaskFormRef}>
-                            <TaskPriority
-                                color={
-                                    priority
-                                        ? PRIORITY_COLORS[priority]
-                                        : '#989ca6'
-                                }
-                            >
-                                <PrioritySelect
-                                    value={priority ?? ''}
-                                    onChange={handlePriorityChange}
-                                >
-                                    {PRIORITIES.map((priority) => (
-                                        <PriorityOption
-                                            value={priority.value}
-                                            key={priority.value}
-                                        >
-                                            {priority.text}
-                                        </PriorityOption>
-                                    ))}
-                                </PrioritySelect>
-                            </TaskPriority>
-
-                            <TaskTitleInput
-                                type="text"
-                                placeholder="Task title..."
-                                value={titleInput}
-                                onChange={handleTitleInputChange}
-                            />
-                            <TaskDescriptionInput
-                                type="text"
-                                placeholder="Task description..."
-                                value={descriptionInput}
-                                onChange={handleDescriptionInputChange}
-                            />
-
-                            <ButtonsContainer>
-                                <SaveButton onClick={handleAddTask}>
-                                    Save
-                                </SaveButton>
-                                <CancelButton onClick={handleCancelTask}>
-                                    Cancel
-                                </CancelButton>
-                            </ButtonsContainer>
-                        </AddTaskForm>
+                        <AddTaskForm
+                            ref={addTaskFormRef}
+                            titleInput={titleInput}
+                            descriptionInput={descriptionInput}
+                            priority={priority}
+                            handleAddTask={handleAddTask}
+                            handleCancelTask={handleCancelTask}
+                            handlePriorityChange={handlePriorityChange}
+                            handleTitleInputChange={handleTitleInputChange}
+                            handleDescriptionInputChange={
+                                handleDescriptionInputChange
+                            }
+                        />
                     )}
                 </TasksWrapper>
             </SortableContext>

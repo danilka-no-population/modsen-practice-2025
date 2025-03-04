@@ -1,27 +1,15 @@
 import { useSortable } from '@dnd-kit/sortable';
 import { CSS } from '@dnd-kit/utilities';
-import React, { FC, useEffect, useRef, useState } from 'react';
+import { FC, useEffect, useRef } from 'react';
 
-import {
-    PRIORITIES,
-    PRIORITY_COLORS,
-    PriorityLevel,
-} from '../../constants/initialPriorities';
+import { PriorityLevel } from '../../constants/initialPriorities';
 import { useAppDispatch } from '../../hooks/typedReduxHooks';
-import { editTask, removeTask } from '../../store/slices/taskSlice';
-import {
-    ButtonsContainer,
-    CancelButton,
-    SaveButton,
-    TaskDescriptionInput,
-    TaskPriority,
-    TaskTitleInput,
-} from '../Column/styled';
+import { useTaskEditing } from '../../hooks/useTaskEditing';
+import { removeTask } from '../../store/slices/taskSlice';
+import TaskEditForm from '../TaskEditForm';
 import {
     DeleteButton,
     EditButton,
-    PriorityOption,
-    PrioritySelect,
     Tag,
     TaskActions,
     TaskContainer,
@@ -53,11 +41,24 @@ const TaskCard: FC<TaskProps> = ({
         transition,
     };
 
-    const [isEditing, setIsEditing] = useState<boolean>(false);
-    const [titleInput, setTitleInput] = useState<string>(title);
-    const [descriptionInput, setDescriptionInput] =
-        useState<string>(description);
-    const [priorityInput, setPriorityInput] = useState(priority?.label || '');
+    const {
+        isEditing,
+        titleInput,
+        descriptionInput,
+        priorityInput,
+        handleSave,
+        handleCancel,
+        handlePriorityInputChange,
+        handleTitleInputChange,
+        handleDescriptionInputChange,
+        handleEditing,
+    } = useTaskEditing(
+        id,
+        columnId,
+        title,
+        description,
+        priority?.label as PriorityLevel
+    );
 
     const titleInputRef = useRef<HTMLInputElement>(null);
     const descriptionInputRef = useRef<HTMLInputElement>(null);
@@ -97,59 +98,10 @@ const TaskCard: FC<TaskProps> = ({
 
     const dispatch = useAppDispatch();
 
-    const handleSave = () => {
-        if (titleInput.trim() === '') return;
-
-        dispatch(
-            editTask({
-                id,
-                columnId,
-                title: titleInput,
-                description: descriptionInput,
-                priority: priorityInput
-                    ? {
-                          label: priorityInput as PriorityLevel,
-                          color: PRIORITY_COLORS[
-                              priorityInput as PriorityLevel
-                          ],
-                      }
-                    : undefined,
-            })
-        );
-        setIsEditing(false);
-    };
-
     const handleDelete = () => {
         if (window.confirm('Вы уверены, что хотите удалить задачу?')) {
             dispatch(removeTask(id));
         }
-    };
-
-    const handleCancel = () => {
-        setIsEditing(false);
-        setTitleInput(title);
-        setDescriptionInput(description);
-        setPriorityInput(priority?.label || '');
-    };
-
-    const handlePriorityInputChange = (
-        e: React.ChangeEvent<HTMLSelectElement>
-    ) => {
-        setPriorityInput(e.target.value);
-    };
-
-    const handleTitleInputChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-        setTitleInput(e.target.value);
-    };
-
-    const handleDescriptionInputChange = (
-        e: React.ChangeEvent<HTMLInputElement>
-    ) => {
-        setDescriptionInput(e.target.value);
-    };
-
-    const handleEditing = () => {
-        setIsEditing(true);
     };
 
     return (
@@ -157,56 +109,24 @@ const TaskCard: FC<TaskProps> = ({
             <>
                 {isEditing ? (
                     <TaskWrapper>
-                        <TaskPriority
-                            color={
-                                priorityInput
-                                    ? PRIORITY_COLORS[
-                                          priorityInput as PriorityLevel
-                                      ]
-                                    : '#989ca6'
+                        <TaskEditForm
+                            titleInput={titleInput}
+                            descriptionInput={descriptionInput}
+                            priorityInput={priorityInput}
+                            handleSave={handleSave}
+                            handleCancel={handleCancel}
+                            handlePriorityInputChange={
+                                handlePriorityInputChange
                             }
-                        >
-                            <PrioritySelect
-                                value={priorityInput}
-                                onChange={handlePriorityInputChange}
-                            >
-                                {PRIORITIES.map((priority) => (
-                                    <PriorityOption
-                                        value={priority.value}
-                                        key={priority.value}
-                                    >
-                                        {priority.text}
-                                    </PriorityOption>
-                                ))}
-                            </PrioritySelect>
-                        </TaskPriority>
-                        <TaskTitleInput
-                            type="text"
-                            value={titleInput}
-                            onChange={handleTitleInputChange}
-                            placeholder="Task title..."
-                            ref={titleInputRef}
-                            onClick={handleTitleClick}
+                            handleTitleInputChange={handleTitleInputChange}
+                            handleDescriptionInputChange={
+                                handleDescriptionInputChange
+                            }
+                            titleInputRef={titleInputRef}
+                            descriptionInputRef={descriptionInputRef}
+                            handleTitleClick={handleTitleClick}
+                            handleDescriptionClick={handleDescriptionClick}
                         />
-                        <TaskDescriptionInput
-                            type="text"
-                            value={descriptionInput}
-                            onChange={handleDescriptionInputChange}
-                            placeholder="Task description..."
-                            ref={descriptionInputRef}
-                            onClick={handleDescriptionClick}
-                        />
-                        <ButtonsContainer>
-                            <SaveButton
-                                onClick={handleSave}
-                                disabled={titleInput.trim() === ''}
-                            >
-                                Сохранить
-                            </SaveButton>
-                            <CancelButton onClick={handleCancel}>
-                                Отмена
-                            </CancelButton>
-                        </ButtonsContainer>
                     </TaskWrapper>
                 ) : (
                     <TaskWrapper
