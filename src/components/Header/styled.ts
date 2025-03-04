@@ -1,18 +1,19 @@
 import styled from 'styled-components';
 
+import { theme } from '../../styles/theme';
+
 export const HeaderContainer = styled.header`
     display: flex;
     justify-content: space-between;
     align-items: center;
-    padding: 32px;
-    background-color: #f8fafc;
+    padding: ${theme.spacing.xl};
+    background-color: ${theme.colors.background};
     height: 104px;
 
     @media (max-width: 768px) {
-        background-color: #ffffff;
-        box-shadow: 0px 2px 5px rgba(0, 0, 0, 0.1);
+        background-color: ${theme.colors.white};
+        box-shadow: ${theme.shadows.small};
         height: 64px;
-
         position: sticky;
         top: 0;
         left: 0;
@@ -23,7 +24,7 @@ export const HeaderContainer = styled.header`
 
 export const Title = styled.h1`
     margin: 0;
-    font-size: 1.5rem;
+    font-size: ${theme.fontSizes.xxlarge};
     font-weight: 800;
 
     @media (max-width: 768px) {
@@ -35,7 +36,7 @@ export const AddColumnButton = styled.button`
     width: 40px;
     height: 40px;
     border-radius: 50%;
-    background-color: transparent;
+    background-color: ${theme.colors.backgroundTransparent};
     border: 1px solid #cbd5e1;
     display: flex;
     justify-content: center;
@@ -46,7 +47,7 @@ export const AddColumnButton = styled.button`
     &:hover {
         background-color: #f0f0f0;
         border-color: #a0a4a8;
-        box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+        box-shadow: ${theme.shadows.small};
         transition:
             background-color 0.3s,
             border-color 0.3s;
@@ -73,14 +74,14 @@ export const BurgerButton = styled.button`
     background: none;
     border: none;
     cursor: pointer;
-    color: white;
+    color: ${theme.colors.white};
     width: 24px;
     height: 24px;
 
     @media (max-width: 768px) {
         display: block;
         color: #475569;
-        font-size: 1rem;
+        font-size: ${theme.fontSizes.large};
         width: 18px;
         height: 14px;
     }
@@ -91,8 +92,8 @@ export const MenuWrapper = styled.div`
     top: 60px;
     left: 0;
     width: 100%;
-    background: white;
-    box-shadow: 0px 2px 5px rgba(0, 0, 0, 0.1);
+    background: ${theme.colors.white};
+    box-shadow: ${theme.shadows.small};
     padding: 10px;
     display: flex;
     flex-direction: column;
@@ -102,11 +103,11 @@ export const MenuWrapper = styled.div`
 export const MenuItem = styled.button`
     background: #4f46e530;
     border: 2px solid #4f46e550;
-    box-shadow: 0px 2px 5px rgba(45, 1, 245, 0.2);
+    box-shadow: ${theme.shadows.small};
     border-radius: 10px;
     padding: 10px 15px;
-    font-size: 1rem;
-    color: #4f46e5;
+    font-size: ${theme.fontSizes.large};
+    color: ${theme.colors.primary};
     font-weight: 700;
     cursor: pointer;
     width: 100%;

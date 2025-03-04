@@ -1,3 +1,5 @@
+import { FC, useEffect, useRef, useState } from 'react';
+
 import burgerIcon from '../../assets/icons/burger.png';
 import plusIcon from '../../assets/icons/grayPlus.png';
 import {
@@ -9,7 +11,6 @@ import {
     MenuWrapper,
     Title,
 } from './styled';
-import { FC, useEffect, useRef, useState } from 'react';
 
 interface HeaderProps {
     // eslint-disable-next-line no-unused-vars
@@ -21,6 +22,9 @@ const Header: FC<HeaderProps> = ({ setIsAddingColumn }) => {
     const handleAddColumn = () => {
         setIsAddingColumn(true);
         setIsMenuOpen(false);
+    };
+    const handleMenuOpen = () => {
+        setIsMenuOpen(!isMenuOpen);
     };
     const headerRef = useRef<HTMLDivElement>(null);
     useEffect(() => {
@@ -42,7 +46,7 @@ const Header: FC<HeaderProps> = ({ setIsAddingColumn }) => {
 
     return (
         <HeaderContainer ref={headerRef}>
-            <BurgerButton onClick={() => setIsMenuOpen(!isMenuOpen)}>
+            <BurgerButton onClick={handleMenuOpen}>
                 <Icon src={burgerIcon} alt="Burger-button" />
             </BurgerButton>
             <Title>Kanban Dashboard</Title>

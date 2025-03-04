@@ -1,24 +1,11 @@
-import { useAppDispatch, useAppSelector } from '../../hooks/typedReduxHooks';
-import { addColumn } from '../../store/slices/columnSlice';
-import Column from '../Column/Column';
-import {
-    BoardWrapper,
-    CancelButton,
-    SaveButton,
-    TaskCount,
-} from '../Column/styled';
-import {
-    AddButtonsContainer,
-    AddColumnHeader,
-    AddColumnTitle,
-    AddColumnWrapper,
-    ColorWrapper,
-    NoColumnsText,
-    Wrapper,
-} from './styled';
-import { useEffect, useRef, useState } from 'react';
-import { HuePicker } from 'react-color';
-import { v4 as uuidv4 } from 'uuid';
+import { useEffect, useRef } from 'react';
+
+import { useAppSelector } from '../../hooks/typedReduxHooks';
+import { useAddColumn } from '../../hooks/useAddColumn';
+import AddColumnForm from '../AddColumnForm';
+import Column from '../Column';
+import { BoardWrapper } from '../Column/styled';
+import { NoColumnsText, Wrapper } from './styled';
 
 interface BoardProps {
     isAddingColumn: boolean;
@@ -27,32 +14,18 @@ interface BoardProps {
 }
 
 const Board = ({ isAddingColumn, setIsAddingColumn }: BoardProps) => {
-    const dispatch = useAppDispatch();
     const columns = useAppSelector((state) => state.columns.columns);
 
-    const [newColumnTitle, setNewColumnTitle] = useState<string>('');
-    const [newColumnColor, setNewColumnColor] = useState<string>('#8A8A8A');
-
-    const handleAddColumn = () => {
-        if (newColumnTitle.trim() !== '') {
-            dispatch(
-                addColumn({
-                    id: uuidv4(),
-                    title: newColumnTitle,
-                    color: newColumnColor,
-                })
-            );
-            setIsAddingColumn(false);
-            setNewColumnTitle('');
-            setNewColumnColor('#8A8A8A');
-        }
-    };
-
-    const handleCancel = () => {
-        setIsAddingColumn(false);
-        setNewColumnTitle('');
-        setNewColumnColor('#8A8A8A');
-    };
+    const {
+        newColumnTitle,
+        newColumnColor,
+        setNewColumnTitle,
+        setNewColumnColor,
+        handleAddColumn,
+        handleCancel,
+        handleColumnTitleChange,
+        handleColorChange,
+    } = useAddColumn(setIsAddingColumn);
 
     const addColumnFormRef = useRef<HTMLDivElement>(null);
 
@@ -82,12 +55,17 @@ const Board = ({ isAddingColumn, setIsAddingColumn }: BoardProps) => {
         return () => {
             document.removeEventListener('mousedown', handleClickOutside);
         };
-    }, [isAddingColumn, setIsAddingColumn]);
+    }, [
+        isAddingColumn,
+        setIsAddingColumn,
+        setNewColumnTitle,
+        setNewColumnColor,
+    ]);
 
     return (
         <BoardWrapper>
             {columns.map((column) => (
-                <Wrapper>
+                <Wrapper key={column.id}>
                     <Column
                         key={column.id}
                         id={column.id}
@@ -97,37 +75,15 @@ const Board = ({ isAddingColumn, setIsAddingColumn }: BoardProps) => {
                 </Wrapper>
             ))}
             {isAddingColumn && (
-                <AddColumnWrapper ref={addColumnFormRef}>
-                    <AddColumnHeader color={newColumnColor}>
-                        <TaskCount color={newColumnColor}>0</TaskCount>
-                        <AddColumnTitle
-                            type="text"
-                            placeholder="Column title..."
-                            value={newColumnTitle}
-                            onChange={(e) => setNewColumnTitle(e.target.value)}
-                        />
-                    </AddColumnHeader>
-                    <ColorWrapper>
-                        <HuePicker
-                            color={newColumnColor}
-                            onChangeComplete={(color) =>
-                                setNewColumnColor(color.hex)
-                            }
-                            width="100%"
-                        />
-                    </ColorWrapper>
-                    <AddButtonsContainer>
-                        <SaveButton
-                            onClick={handleAddColumn}
-                            disabled={newColumnTitle.trim() === ''}
-                        >
-                            Save
-                        </SaveButton>
-                        <CancelButton onClick={handleCancel}>
-                            Cancel
-                        </CancelButton>
-                    </AddButtonsContainer>
-                </AddColumnWrapper>
+                <AddColumnForm
+                    ref={addColumnFormRef}
+                    newColumnTitle={newColumnTitle}
+                    newColumnColor={newColumnColor}
+                    handleAddColumn={handleAddColumn}
+                    handleCancel={handleCancel}
+                    handleColumnTitleChange={handleColumnTitleChange}
+                    handleColorChange={handleColorChange}
+                />
             )}
             {columns.length === 0 && isAddingColumn === false && (
                 <NoColumnsText>

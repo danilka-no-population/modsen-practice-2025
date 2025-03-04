@@ -1,5 +1,7 @@
 import { createGlobalStyle } from 'styled-components';
 
+import { theme } from './theme';
+
 const GlobalStyles = createGlobalStyle`
     * {
         margin: 0;
@@ -12,7 +14,7 @@ const GlobalStyles = createGlobalStyle`
         font-optical-sizing: auto;
         font-style: normal;
         color: #1E293B;
-        background: #ffffff;
+        background: ${theme.colors.white};
         transition: background 0.3s ease-in-out;
         min-width: 100vw;
         min-height: 100vh;

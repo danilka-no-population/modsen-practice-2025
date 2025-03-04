@@ -1,21 +1,10 @@
 import { createSlice, PayloadAction } from '@reduxjs/toolkit';
 
-export interface Column {
-    id: string;
-    title: string;
-    color: string;
-}
-
-interface ColumnsState {
-    columns: Column[];
-}
+import { INITIAL_COLUMNS } from '../../constants/initialColumns';
+import { Column, ColumnsState } from '../../types/columnTypes';
 
 const initialState: ColumnsState = {
-    columns: [
-        { id: 'todo', title: 'To Do', color: '#4F46E5' },
-        { id: 'in-progress', title: 'In Progress', color: '#F59E0B' },
-        { id: 'done', title: 'Done', color: '#22C55E' },
-    ],
+    columns: INITIAL_COLUMNS,
 };
 
 const columnsSlice = createSlice({
