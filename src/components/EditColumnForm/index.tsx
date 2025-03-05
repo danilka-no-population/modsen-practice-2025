@@ -36,7 +36,6 @@ const EditColumnForm = forwardRef<HTMLDivElement, EditColumnFormProps>(
     ) => {
         const titleInputRef = useRef<HTMLInputElement>(null);
         const isFirstClickTitle = useRef(true);
-        // eslint-disable-next-line @typescript-eslint/no-unused-vars
         const [isEditing, setIsEditing] = useState<boolean>(false);
 
         const handleTitleClick = () => {
@@ -53,6 +52,7 @@ const EditColumnForm = forwardRef<HTMLDivElement, EditColumnFormProps>(
 
         useEffect(() => {
             if (!isEditing) {
+                setIsEditing(false);
                 isFirstClickTitle.current = true;
             }
         }, [isEditing]);
