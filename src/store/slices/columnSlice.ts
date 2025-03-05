@@ -22,8 +22,17 @@ const columnsSlice = createSlice({
         reorderColumns: (state, action: PayloadAction<Column[]>) => {
             state.columns = action.payload;
         },
+        updateColumn: (state, action: PayloadAction<Column>) => {
+            const columnIndex = state.columns.findIndex(
+                (col) => col.id === action.payload.id
+            );
+            if (columnIndex !== -1) {
+                state.columns[columnIndex] = action.payload;
+            }
+        },
     },
 });
 
-export const { addColumn, removeColumn, reorderColumns } = columnsSlice.actions;
+export const { addColumn, removeColumn, reorderColumns, updateColumn } =
+    columnsSlice.actions;
 export default columnsSlice.reducer;

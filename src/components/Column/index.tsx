@@ -5,14 +5,15 @@ import {
     verticalListSortingStrategy,
 } from '@dnd-kit/sortable';
 import { CSS } from '@dnd-kit/utilities';
-import { FC, useEffect, useRef } from 'react';
+import { FC, useEffect, useRef, useState } from 'react';
 
 import whitePlus from '../../assets/icons/whitePlus.png';
 import { useAppDispatch, useAppSelector } from '../../hooks/typedReduxHooks';
 import { useAddTask } from '../../hooks/useAddTask';
-import { removeColumn } from '../../store/slices/columnSlice';
+import { removeColumn, updateColumn } from '../../store/slices/columnSlice';
 import { removeTasksByColumnId } from '../../store/slices/taskSlice';
 import AddTaskForm from '../AddTaskForm';
+import EditColumnForm from '../EditColumnForm';
 import { Icon } from '../Header/styled';
 import TaskCard from '../TaskCard';
 import {
@@ -22,8 +23,9 @@ import {
     ColumnTitle,
     ColumnWrapper,
     Container,
-    DeleteColumnButton,
+    DeleteButton,
     DraggableContainer,
+    EditButton,
     NoTasksText,
     TaskCount,
     TasksWrapper,
@@ -40,6 +42,10 @@ const Column: FC<ColumnProps> = ({ id, title, color }) => {
     const tasks = useAppSelector((state) =>
         state.tasks.tasks.filter((task) => task.columnId === id)
     );
+
+    const [isEditing, setIsEditing] = useState<boolean>(false);
+    const [editedTitle, setEditedTitle] = useState<string>(title);
+    const [editedColor, setEditedColor] = useState<string>(color);
 
     const {
         isAddingTask,
@@ -97,6 +103,29 @@ const Column: FC<ColumnProps> = ({ id, title, color }) => {
         };
     }, [isAddingTask, handleCancelTask]);
 
+    const handleCancelEdit = () => {
+        setIsEditing(false);
+        setEditedTitle(title);
+        setEditedColor(color);
+    };
+
+    useEffect(() => {
+        const handleClickOutside = (event: MouseEvent) => {
+            if (
+                isEditing &&
+                addTaskFormRef.current &&
+                !addTaskFormRef.current.contains(event.target as Node)
+            ) {
+                handleCancelEdit();
+            }
+        };
+        document.addEventListener('mousedown', handleClickOutside);
+
+        return () => {
+            document.removeEventListener('mousedown', handleClickOutside);
+        };
+    }, [isEditing]);
+
     const handleRemoveColumn = () => {
         if (confirm('Are you sure you want to delete the column?')) {
             dispatch(removeColumn(id));
@@ -104,25 +133,54 @@ const Column: FC<ColumnProps> = ({ id, title, color }) => {
         }
     };
 
+    const handleEditClick = () => {
+        setIsEditing(true);
+    };
+
+    const handleSaveEdit = () => {
+        if (editedTitle.trim() !== '') {
+            dispatch(
+                updateColumn({ id, title: editedTitle, color: editedColor })
+            );
+            setIsEditing(false);
+        }
+    };
+
     return (
         <ColumnWrapper ref={setColumnNodeRef} style={style}>
-            <ColumnHeader color={color}>
-                <DraggableContainer {...attributes} {...listeners}>
-                    <TaskCount color={color}>{tasks.length}</TaskCount>
-                    <ColumnTitle>{title}</ColumnTitle>
-                </DraggableContainer>
-                <Container>
-                    <DeleteColumnButton
-                        color={color}
-                        onClick={handleRemoveColumn}
-                    >
-                        Delete
-                    </DeleteColumnButton>
-                    <AddTaskButton onClick={handleAddTaskClick}>
-                        <Icon src={whitePlus} alt="Add task" />
-                    </AddTaskButton>
-                </Container>
-            </ColumnHeader>
+            {isEditing ? (
+                <EditColumnForm
+                    taskCount={tasks.length}
+                    ref={addTaskFormRef}
+                    newColumnTitle={editedTitle}
+                    newColumnColor={editedColor}
+                    handleAddColumn={handleSaveEdit}
+                    handleCancel={handleCancelEdit}
+                    handleColumnTitleChange={(e) =>
+                        setEditedTitle(e.target.value)
+                    }
+                    handleColorChange={(color) => setEditedColor(color.hex)}
+                />
+            ) : (
+                <ColumnHeader color={color}>
+                    <DraggableContainer {...attributes} {...listeners}>
+                        <TaskCount color={color}>{tasks.length}</TaskCount>
+                        <ColumnTitle>{title}</ColumnTitle>
+                    </DraggableContainer>
+                    <Container>
+                        <EditButton onClick={handleEditClick}>✏️</EditButton>
+                        <DeleteButton
+                            color={color}
+                            onClick={handleRemoveColumn}
+                        >
+                            🗑️
+                        </DeleteButton>
+                        <AddTaskButton onClick={handleAddTaskClick}>
+                            <Icon src={whitePlus} alt="Add task" />
+                        </AddTaskButton>
+                    </Container>
+                </ColumnHeader>
+            )}
             <SortableContext
                 items={tasks
                     .filter((task) => task !== null)
