@@ -208,3 +208,27 @@ export const NoTasksText = styled.div`
     padding: 0 40px;
     opacity: 0.5;
 `;
+
+export const EditButton = styled.button`
+    background: rgba(255, 255, 255, 0.9);
+    border: none;
+    cursor: pointer;
+    font-size: ${theme.fontSizes.small};
+    padding: 5px;
+    border-radius: 4px;
+    &:hover {
+        background: rgba(255, 255, 255, 1);
+    }
+`;
+
+export const DeleteButton = styled.button`
+    background: rgba(255, 255, 255, 0.9);
+    border: none;
+    cursor: pointer;
+    font-size: ${theme.fontSizes.small};
+    padding: 5px;
+    border-radius: 4px;
+    &:hover {
+        background: rgba(255, 255, 255, 1);
+    }
+`;
