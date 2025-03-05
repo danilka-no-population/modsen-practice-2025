@@ -17,6 +17,7 @@ export const BoardWrapper = styled.div`
     align-items: flex-start;
     height: calc(100vh - 104px);
     position: relative;
+    user-select: none;
 
     @media (max-width: 768px) {
         flex-direction: column;
