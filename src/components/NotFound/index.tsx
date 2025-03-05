@@ -1,6 +1,6 @@
 import { HomeLink, NotFoundWrapper, Subtitle, Title } from './styled';
 
-const NotFoundPage = () => {
+const NotFound = () => {
     return (
         <NotFoundWrapper>
             <Title>404</Title>
@@ -10,4 +10,4 @@ const NotFoundPage = () => {
     );
 };
 
-export default NotFoundPage;
+export default NotFound;
