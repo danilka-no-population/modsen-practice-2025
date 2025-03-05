@@ -1,8 +1,8 @@
 import React, { useState } from 'react';
 import { v4 as uuidv4 } from 'uuid';
 
-import { useAppDispatch } from '../hooks/typedReduxHooks';
-import { addColumn } from '../store/slices/columnSlice';
+import { useAppDispatch } from '#hooks/typedReduxHooks';
+import { addColumn } from '#store/slices/columnSlice';
 
 // eslint-disable-next-line no-unused-vars
 export const useAddColumn = (setIsAddingColumn: (value: boolean) => void) => {

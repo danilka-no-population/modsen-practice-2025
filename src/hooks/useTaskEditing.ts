@@ -1,8 +1,8 @@
 import React, { useState } from 'react';
 
-import { PRIORITY_COLORS, PriorityLevel } from '../constants/initialPriorities';
-import { useAppDispatch } from '../hooks/typedReduxHooks';
-import { editTask } from '../store/slices/taskSlice';
+import { PRIORITY_COLORS, PriorityLevel } from '#constants/initialPriorities';
+import { useAppDispatch } from '#hooks/typedReduxHooks';
+import { editTask } from '#store/slices/taskSlice';
 
 export const useTaskEditing = (
     id: string,

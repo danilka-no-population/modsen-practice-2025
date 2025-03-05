@@ -1,7 +1,8 @@
 import { FC, useEffect, useRef, useState } from 'react';
 
-import burgerIcon from '../../assets/icons/burger.png';
-import plusIcon from '../../assets/icons/grayPlus.png';
+import burgerIcon from '#assets/icons/burger.png';
+import plusIcon from '#assets/icons/grayPlus.png';
+
 import {
     AddColumnButton,
     BurgerButton,

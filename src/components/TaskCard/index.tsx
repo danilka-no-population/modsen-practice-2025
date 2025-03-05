@@ -2,11 +2,12 @@ import { useSortable } from '@dnd-kit/sortable';
 import { CSS } from '@dnd-kit/utilities';
 import { FC, useEffect, useRef } from 'react';
 
-import { PriorityLevel } from '../../constants/initialPriorities';
-import { useAppDispatch } from '../../hooks/typedReduxHooks';
-import { useTaskEditing } from '../../hooks/useTaskEditing';
-import { removeTask } from '../../store/slices/taskSlice';
-import TaskEditForm from '../TaskEditForm';
+import TaskEditForm from '#components/TaskEditForm';
+import { PriorityLevel } from '#constants/initialPriorities';
+import { useAppDispatch } from '#hooks/typedReduxHooks';
+import { useTaskEditing } from '#hooks/useTaskEditing';
+import { removeTask } from '#store/slices/taskSlice';
+
 import {
     DeleteButton,
     EditButton,

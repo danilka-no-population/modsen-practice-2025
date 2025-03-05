@@ -1,6 +1,6 @@
 import { createSlice, PayloadAction } from '@reduxjs/toolkit';
 
-import { Task, TasksState } from '../../types/taskTypes';
+import { Task, TasksState } from '#types/taskTypes';
 
 const initialState: TasksState = {
     tasks: [],

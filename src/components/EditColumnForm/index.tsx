@@ -7,8 +7,9 @@ import {
     AddColumnHeader,
     AddColumnTitle,
     ColorWrapper,
-} from '../AddColumnForm/styled';
-import { CancelButton, SaveButton, TaskCount } from '../Column/styled';
+} from '#components/AddColumnForm/styled';
+import { CancelButton, SaveButton, TaskCount } from '#components/Column/styled';
+
 import { EditColumnWrapper } from './styled';
 
 interface EditColumnFormProps {

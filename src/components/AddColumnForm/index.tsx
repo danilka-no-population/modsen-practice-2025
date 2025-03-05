@@ -2,7 +2,8 @@
 import React, { forwardRef } from 'react';
 import { HuePicker } from 'react-color';
 
-import { CancelButton, SaveButton, TaskCount } from '../Column/styled';
+import { CancelButton, SaveButton, TaskCount } from '#components/Column/styled';
+
 import {
     AddButtonsContainer,
     AddColumnHeader,

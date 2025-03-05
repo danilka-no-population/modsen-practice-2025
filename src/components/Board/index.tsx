@@ -1,10 +1,11 @@
 import { useEffect, useRef } from 'react';
 
-import { useAppSelector } from '../../hooks/typedReduxHooks';
-import { useAddColumn } from '../../hooks/useAddColumn';
-import AddColumnForm from '../AddColumnForm';
-import Column from '../Column';
-import { BoardWrapper } from '../Column/styled';
+import AddColumnForm from '#components/AddColumnForm';
+import Column from '#components/Column';
+import { BoardWrapper } from '#components/Column/styled';
+import { useAppSelector } from '#hooks/typedReduxHooks';
+import { useAddColumn } from '#hooks/useAddColumn';
+
 import { NoColumnsText, Wrapper } from './styled';
 
 interface BoardProps {

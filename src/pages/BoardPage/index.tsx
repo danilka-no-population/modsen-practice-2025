@@ -1,7 +1,7 @@
 import { useState } from 'react';
 
-import Board from '../../components/Board';
-import Header from '../../components/Header';
+import Board from '#components/Board';
+import Header from '#components/Header';
 
 const BoardPage = () => {
     const [isAddingColumn, setIsAddingColumn] = useState<boolean>(false);

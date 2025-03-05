@@ -7,15 +7,16 @@ import {
 import { CSS } from '@dnd-kit/utilities';
 import { FC, useEffect, useRef, useState } from 'react';
 
-import whitePlus from '../../assets/icons/whitePlus.png';
-import { useAppDispatch, useAppSelector } from '../../hooks/typedReduxHooks';
-import { useAddTask } from '../../hooks/useAddTask';
-import { removeColumn, updateColumn } from '../../store/slices/columnSlice';
-import { removeTasksByColumnId } from '../../store/slices/taskSlice';
-import AddTaskForm from '../AddTaskForm';
-import EditColumnForm from '../EditColumnForm';
-import { Icon } from '../Header/styled';
-import TaskCard from '../TaskCard';
+import whitePlus from '#assets/icons/whitePlus.png';
+import AddTaskForm from '#components/AddTaskForm';
+import EditColumnForm from '#components/EditColumnForm';
+import { Icon } from '#components/Header/styled';
+import TaskCard from '#components/TaskCard';
+import { useAppDispatch, useAppSelector } from '#hooks/typedReduxHooks';
+import { useAddTask } from '#hooks/useAddTask';
+import { removeColumn, updateColumn } from '#store/slices/columnSlice';
+import { removeTasksByColumnId } from '#store/slices/taskSlice';
+
 import {
     AddTask,
     AddTaskButton,

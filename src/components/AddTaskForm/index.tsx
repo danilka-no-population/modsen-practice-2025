@@ -1,13 +1,14 @@
 /* eslint-disable no-unused-vars */
 import React, { forwardRef } from 'react';
 
+import { CancelButton, SaveButton } from '#components/Column/styled';
+import { PriorityOption, PrioritySelect } from '#components/TaskCard/styled';
 import {
     PRIORITIES,
     PRIORITY_COLORS,
     PriorityLevel,
-} from '../../constants/initialPriorities';
-import { CancelButton, SaveButton } from '../Column/styled';
-import { PriorityOption, PrioritySelect } from '../TaskCard/styled';
+} from '#constants/initialPriorities';
+
 import {
     AddTaskWrapper,
     ButtonsContainer,

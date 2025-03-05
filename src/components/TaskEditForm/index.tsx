@@ -2,18 +2,18 @@
 import React from 'react';
 
 import {
-    PRIORITIES,
-    PRIORITY_COLORS,
-    PriorityLevel,
-} from '../../constants/initialPriorities';
-import {
     ButtonsContainer,
     TaskDescriptionInput,
     TaskPriority,
     TaskTitleInput,
-} from '../AddTaskForm/styled';
-import { CancelButton, SaveButton } from '../Column/styled';
-import { PriorityOption, PrioritySelect } from '../TaskCard/styled';
+} from '#components/AddTaskForm/styled';
+import { CancelButton, SaveButton } from '#components/Column/styled';
+import { PriorityOption, PrioritySelect } from '#components/TaskCard/styled';
+import {
+    PRIORITIES,
+    PRIORITY_COLORS,
+    PriorityLevel,
+} from '#constants/initialPriorities';
 
 interface TaskEditFormProps {
     titleInput: string;

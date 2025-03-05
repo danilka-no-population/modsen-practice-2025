@@ -1,7 +1,7 @@
 import { createSlice, PayloadAction } from '@reduxjs/toolkit';
 
-import { INITIAL_COLUMNS } from '../../constants/initialColumns';
-import { Column, ColumnsState } from '../../types/columnTypes';
+import { INITIAL_COLUMNS } from '#constants/initialColumns';
+import { Column, ColumnsState } from '#types/columnTypes';
 
 const initialState: ColumnsState = {
     columns: INITIAL_COLUMNS,

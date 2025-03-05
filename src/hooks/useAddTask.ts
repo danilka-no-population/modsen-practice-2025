@@ -1,9 +1,9 @@
 import React, { useState } from 'react';
 import { v4 as uuidv4 } from 'uuid';
 
-import { PRIORITY_COLORS, PriorityLevel } from '../constants/initialPriorities';
-import { useAppDispatch } from '../hooks/typedReduxHooks';
-import { addTask } from '../store/slices/taskSlice';
+import { PRIORITY_COLORS, PriorityLevel } from '#constants/initialPriorities';
+import { useAppDispatch } from '#hooks/typedReduxHooks';
+import { addTask } from '#store/slices/taskSlice';
 
 export const useAddTask = (columnId: string) => {
     const dispatch = useAppDispatch();

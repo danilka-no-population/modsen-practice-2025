@@ -2,11 +2,11 @@ import { DragEndEvent, DragStartEvent } from '@dnd-kit/core';
 import { arrayMove } from '@dnd-kit/sortable';
 import { useState } from 'react';
 
-import { useAppDispatch, useAppSelector } from '../hooks/typedReduxHooks';
-import { reorderColumns } from '../store/slices/columnSlice';
-import { moveTask, reorderTasks } from '../store/slices/taskSlice';
-import { Column as ColumnType } from '../types/columnTypes';
-import { Task } from '../types/taskTypes';
+import { useAppDispatch, useAppSelector } from '#hooks/typedReduxHooks';
+import { reorderColumns } from '#store/slices/columnSlice';
+import { moveTask, reorderTasks } from '#store/slices/taskSlice';
+import { Column as ColumnType } from '#types/columnTypes';
+import { Task } from '#types/taskTypes';
 
 export const useDnD = () => {
     const dispatch = useAppDispatch();

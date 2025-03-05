@@ -1,13 +1,13 @@
 import { DndContext, DragOverlay, rectIntersection } from '@dnd-kit/core';
 import { Route, Routes } from 'react-router-dom';
 
-import Column from './components/Column';
-import TaskCard from './components/TaskCard';
-import { useDnD } from './hooks/useDnD';
-import { useDnDSensors } from './hooks/useDnDSensors';
-import BoardPage from './pages/BoardPage';
-import NotFoundPage from './pages/NotFoundPage';
-import GlobalStyles from './styles/globalStyles';
+import Column from '#components/Column';
+import TaskCard from '#components/TaskCard';
+import { useDnD } from '#hooks/useDnD';
+import { useDnDSensors } from '#hooks/useDnDSensors';
+import BoardPage from '#pages/BoardPage';
+import NotFoundPage from '#pages/NotFoundPage';
+import GlobalStyles from '#styles/globalStyles';
 
 function App() {
     const sensors = useDnDSensors();
