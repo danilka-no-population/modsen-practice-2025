@@ -1,16 +1,15 @@
 import { DndContext, DragOverlay, rectIntersection } from '@dnd-kit/core';
-import { useState } from 'react';
+import { Route, Routes } from 'react-router-dom';
 
-import Board from './components/Board';
 import Column from './components/Column';
-import Header from './components/Header';
 import TaskCard from './components/TaskCard';
 import { useDnD } from './hooks/useDnD';
 import { useDnDSensors } from './hooks/useDnDSensors';
+import BoardPage from './pages/BoardPage';
+import NotFoundPage from './pages/NotFoundPage';
 import GlobalStyles from './styles/globalStyles';
 
 function App() {
-    const [isAddingColumn, setIsAddingColumn] = useState<boolean>(false);
     const sensors = useDnDSensors();
     const {
         activeTask,
@@ -23,7 +22,6 @@ function App() {
     return (
         <>
             <GlobalStyles />
-            <Header setIsAddingColumn={setIsAddingColumn} />
             <DndContext
                 sensors={sensors}
                 collisionDetection={rectIntersection}
@@ -31,10 +29,10 @@ function App() {
                 onDragEnd={handleDragEnd}
                 onDragCancel={handleDragCancel}
             >
-                <Board
-                    isAddingColumn={isAddingColumn}
-                    setIsAddingColumn={setIsAddingColumn}
-                />
+                <Routes>
+                    <Route path="/" element={<BoardPage />} />
+                    <Route path="*" element={<NotFoundPage />} />
+                </Routes>
                 <DragOverlay>
                     {activeTask ? (
                         <TaskCard
