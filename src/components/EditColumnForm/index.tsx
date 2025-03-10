@@ -6,6 +6,7 @@ import {
     AddButtonsContainer,
     AddColumnHeader,
     AddColumnTitle,
+    CharCounter,
     ColorWrapper,
 } from '#components/AddColumnForm/styled';
 import { CancelButton, SaveButton, TaskCount } from '#components/Column/styled';
@@ -69,7 +70,11 @@ const EditColumnForm = forwardRef<HTMLDivElement, EditColumnFormProps>(
                         onChange={handleColumnTitleChange}
                         ref={titleInputRef}
                         onClick={handleTitleClick}
+                        maxLength={25}
                     />
+                    <CharCounter isLimitReached={newColumnTitle.length >= 25}>
+                        {newColumnTitle.length}/25
+                    </CharCounter>
                 </AddColumnHeader>
                 <ColorWrapper>
                     <HuePicker

@@ -60,3 +60,10 @@ export const TaskPriority = styled.div<{ color: string }>`
     font-weight: 700;
     font-size: ${theme.fontSizes.small};
 `;
+
+export const CharCounter = styled.p<{ isLimitReached: boolean }>`
+    font-size: ${theme.fontSizes.medium};
+    margin-left: 5px;
+    font-weght: bold;
+    color: ${({ isLimitReached }) => (isLimitReached ? 'red' : 'gray')};
+`;

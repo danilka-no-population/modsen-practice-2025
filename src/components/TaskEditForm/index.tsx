@@ -3,6 +3,7 @@ import React from 'react';
 
 import {
     ButtonsContainer,
+    CharCounter,
     TaskDescriptionInput,
     TaskPriority,
     TaskTitleInput,
@@ -78,7 +79,11 @@ const TaskEditForm: React.FC<TaskEditFormProps> = ({
                 placeholder="Task title..."
                 ref={titleInputRef}
                 onClick={handleTitleClick}
+                maxLength={60}
             />
+            <CharCounter isLimitReached={titleInput.length >= 60}>
+                {titleInput.length}/60
+            </CharCounter>
             <TaskDescriptionInput
                 type="text"
                 value={descriptionInput}
