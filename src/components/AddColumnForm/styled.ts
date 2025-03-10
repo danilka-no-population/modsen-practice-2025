@@ -69,3 +69,8 @@ export const ColorWrapper = styled.div`
     padding: ${theme.spacing.xs};
     z-index: 1000;
 `;
+
+export const CharCounter = styled.p<{ isLimitReached: boolean }>`
+    font-size: 12px;
+    color: ${({ isLimitReached }) => (isLimitReached ? 'red' : 'white')};
+`;

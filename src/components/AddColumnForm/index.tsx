@@ -9,6 +9,7 @@ import {
     AddColumnHeader,
     AddColumnTitle,
     AddColumnWrapper,
+    CharCounter,
     ColorWrapper,
 } from './styled';
 
@@ -42,7 +43,11 @@ const AddColumnForm = forwardRef<HTMLDivElement, AddColumnFormProps>(
                         placeholder="Column title..."
                         value={newColumnTitle}
                         onChange={handleColumnTitleChange}
+                        maxLength={25}
                     />
+                    <CharCounter isLimitReached={newColumnTitle.length >= 25}>
+                        {newColumnTitle.length}/25
+                    </CharCounter>
                 </AddColumnHeader>
                 <ColorWrapper>
                     <HuePicker
