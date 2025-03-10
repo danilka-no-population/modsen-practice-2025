@@ -12,6 +12,7 @@ import {
 import {
     AddTaskWrapper,
     ButtonsContainer,
+    CharCounter,
     TaskDescriptionInput,
     TaskPriority,
     TaskTitleInput,
@@ -69,7 +70,11 @@ const AddTaskForm = forwardRef<HTMLDivElement, AddTaskFormProps>(
                     placeholder="Task title..."
                     value={titleInput}
                     onChange={handleTitleInputChange}
+                    maxLength={60}
                 />
+                <CharCounter isLimitReached={titleInput.length >= 60}>
+                    {titleInput.length}/60
+                </CharCounter>
                 <TaskDescriptionInput
                     type="text"
                     placeholder="Task description..."
